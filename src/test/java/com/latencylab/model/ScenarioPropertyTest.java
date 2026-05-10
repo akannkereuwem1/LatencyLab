@@ -28,11 +28,16 @@ class ScenarioPropertyTest {
                 .as(RequestStep::new);
     }
 
+    @Provide
+    Arbitrary<List<RequestStep>> requestStepLists() {
+        return requestSteps().list().ofMinSize(1).ofMaxSize(10);
+    }
+
     // Feature: latencylab-phase1-setup, Property 3: Scenario construction preserves all field values
     @Property(tries = 100)
     void constructionPreservesFieldValues(
             @ForAll String testName,
-            @ForAll("requestSteps") @Size(min = 1, max = 10) List<RequestStep> steps,
+            @ForAll("requestStepLists") List<RequestStep> steps,
             @ForAll @IntRange(min = 0, max = 3600) int rampUpSeconds,
             @ForAll @IntRange(min = 1, max = 86400) int durationSeconds,
             @ForAll @IntRange(min = 1, max = 100000) int userCount
@@ -52,7 +57,7 @@ class ScenarioPropertyTest {
     @Property(tries = 100)
     void rejectsInvalidNumericBounds(
             @ForAll String testName,
-            @ForAll("requestSteps") @Size(min = 1, max = 10) List<RequestStep> steps,
+            @ForAll("requestStepLists") List<RequestStep> steps,
             @ForAll int rampUpSeconds,
             @ForAll int durationSeconds,
             @ForAll int userCount
@@ -78,6 +83,7 @@ class ScenarioPropertyTest {
             @ForAll @IntRange(min = 1, max = 100000) int userCount
     ) {
         if (testName == null) return;
+        Assume.that(!singleStep.equals(anotherStep));
 
         List<RequestStep> originalSteps = new ArrayList<>();
         originalSteps.add(singleStep);

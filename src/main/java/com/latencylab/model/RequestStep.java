@@ -9,8 +9,7 @@ public record RequestStep(
         String endpoint,
         String body,
         Map<String, String> headers,
-        int timeoutMillis
-) {
+        int timeoutMillis) {
     public RequestStep {
         Objects.requireNonNull(name, "name cannot be null");
         Objects.requireNonNull(method, "method cannot be null");

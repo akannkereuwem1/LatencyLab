@@ -17,7 +17,7 @@ public record MetricsSnapshot(
         if (successfulRequests < 0 || failedRequests < 0 || totalRequests < 0) {
             throw new IllegalArgumentException("Request counts cannot be negative");
         }
-        if (successfulRequests + failedRequests > totalRequests) {
+        if (totalRequests - successfulRequests < failedRequests) {
             throw new IllegalArgumentException("successfulRequests + failedRequests cannot exceed totalRequests");
         }
     }

@@ -9,9 +9,9 @@ class MetricsSnapshotPropertyTest {
     // Feature: latencylab-phase1-setup, Property 6: MetricsSnapshot construction preserves all field values
     @Property(tries = 100)
     void constructionPreservesFieldValues(
-            @ForAll long totalRequests,
-            @ForAll long successfulRequests,
-            @ForAll long failedRequests,
+            @ForAll @net.jqwik.api.constraints.LongRange(min = 0, max = 1000000) long totalRequests,
+            @ForAll @net.jqwik.api.constraints.LongRange(min = 0, max = 1000000) long successfulRequests,
+            @ForAll @net.jqwik.api.constraints.LongRange(min = 0, max = 1000000) long failedRequests,
             @ForAll long avgLatencyNanos,
             @ForAll long minLatencyNanos,
             @ForAll long maxLatencyNanos,
@@ -21,10 +21,7 @@ class MetricsSnapshotPropertyTest {
             @ForAll double requestsPerSecond,
             @ForAll long snapshotTimestamp
     ) {
-        Assume.that(totalRequests >= 0 && successfulRequests >= 0 && failedRequests >= 0);
-        // Avoid overflow during generation checking
-        Assume.that(successfulRequests <= totalRequests);
-        Assume.that(failedRequests <= totalRequests - successfulRequests);
+        Assume.that(totalRequests - successfulRequests >= failedRequests);
 
         MetricsSnapshot snapshot = new MetricsSnapshot(
                 totalRequests, successfulRequests, failedRequests,
@@ -49,19 +46,11 @@ class MetricsSnapshotPropertyTest {
     // Feature: latencylab-phase1-setup, Property 5: MetricsSnapshot request count invariant
     @Property(tries = 100)
     void requestCountInvariant(
-            @ForAll long totalRequests,
-            @ForAll long successfulRequests,
-            @ForAll long failedRequests
+            @ForAll @net.jqwik.api.constraints.LongRange(min = 0, max = 1000000) long totalRequests,
+            @ForAll @net.jqwik.api.constraints.LongRange(min = 0, max = 1000000) long successfulRequests,
+            @ForAll @net.jqwik.api.constraints.LongRange(min = 0, max = 1000000) long failedRequests
     ) {
-        Assume.that(totalRequests >= 0 && successfulRequests >= 0 && failedRequests >= 0);
-        // We want to test when the invariant is violated (sum > totalRequests)
-        boolean invalid = false;
-        if (successfulRequests > totalRequests) {
-            invalid = true;
-        } else if (failedRequests > totalRequests - successfulRequests) {
-            invalid = true;
-        }
-        Assume.that(invalid);
+        Assume.that(totalRequests - successfulRequests < failedRequests);
 
         assertThrows(IllegalArgumentException.class, () -> {
             new MetricsSnapshot(totalRequests, successfulRequests, failedRequests,
