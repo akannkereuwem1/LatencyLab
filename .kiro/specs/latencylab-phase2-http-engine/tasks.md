@@ -30,8 +30,8 @@ Implement the two concrete runtime classes that bring the Phase 1 interface cont
     - Inject `Content-Type: application/json; charset=utf-8` only when body is non-null and non-empty AND `step.headers()` does not already contain `Content-Type`
     - _Requirements: 1.3, 1.4, 1.5, 6.1, 6.2, 6.3, 6.4, 6.5, 6.6_
 
-- [ ] 2. Implement `OkHttpTransportLayer` — `execute` and `close`
-  - [ ] 2.1 Implement `execute(RequestStep step)` method
+- [x] 2. Implement `OkHttpTransportLayer` — `execute` and `close`
+  - [x] 2.1 Implement `execute(RequestStep step)` method
     - `Objects.requireNonNull(step, "step must not be null")`; if `closed` throw `IllegalStateException`
     - Call `buildUrl`, `buildRequest`; log DEBUG dispatch message with `step.name()`, method, URL
     - Build per-request client via `client.newBuilder().readTimeout(step.timeoutMillis(), MILLISECONDS).build()`
@@ -40,7 +40,7 @@ Implement the two concrete runtime classes that bring the Phase 1 interface cont
     - Catch `IOException`: capture `endNanos`, log DEBUG failure, return `HttpResponseResult(0, null, endNanos - startNanos)`
     - _Requirements: 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 1.10, 1.11, 2.5, 2.12, 5.1, 5.2, 5.3, 5.4, 5.5_
 
-  - [ ] 2.2 Implement `close()` method
+  - [x] 2.2 Implement `close()` method
     - If `closed` return immediately (idempotent); set `closed = true`
     - Call `client.connectionPool().evictAll()` then `client.dispatcher().executorService().shutdown()`
     - _Requirements: 2.8, 2.9, 2.10, 2.11_

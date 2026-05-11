@@ -12,7 +12,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class OkHttpTransportLayer implements HttpTransportLayer, Closeable {
 
@@ -107,11 +110,54 @@ public class OkHttpTransportLayer implements HttpTransportLayer, Closeable {
 
     @Override
     public HttpResponseResult execute(RequestStep step) {
-        throw new UnsupportedOperationException("To be implemented in Task 2");
+        Objects.requireNonNull(step, "step must not be null");
+        if (closed) {
+            throw new IllegalStateException("Transport layer is closed");
+        }
+
+        String url = buildUrl(step.endpoint());
+        Request request = buildRequest(step, url);
+
+        log.debug("Dispatching request step '{}': {} {}", step.name(), request.method(), request.url());
+
+        OkHttpClient callClient = client;
+        if (step.timeoutMillis() > 0) {
+            callClient = client.newBuilder()
+                    .readTimeout(step.timeoutMillis(), TimeUnit.MILLISECONDS)
+                    .build();
+        }
+
+        okhttp3.Call call = callClient.newCall(request);
+        long startNanos = System.nanoTime();
+        try (Response response = call.execute()) {
+            long endNanos = System.nanoTime();
+            int statusCode = response.code();
+            ResponseBody responseBody = response.body();
+            String bodyString = null;
+            if (responseBody != null) {
+                byte[] bytes = responseBody.bytes();
+                if (bytes.length > 0) {
+                    bodyString = new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
+                }
+            }
+            long latencyNanos = endNanos - startNanos;
+            log.debug("Completed request step '{}': status {}, latency {}ns", step.name(), statusCode, latencyNanos);
+            return new HttpResponseResult(statusCode, bodyString, latencyNanos);
+        } catch (java.io.IOException e) {
+            long endNanos = System.nanoTime();
+            long latencyNanos = endNanos - startNanos;
+            log.debug("Failed request step '{}': {}", step.name(), e.getMessage());
+            return new HttpResponseResult(0, null, latencyNanos);
+        }
     }
 
     @Override
     public void close() {
-        throw new UnsupportedOperationException("To be implemented in Task 2");
+        if (closed) {
+            return;
+        }
+        closed = true;
+        client.connectionPool().evictAll();
+        client.dispatcher().executorService().shutdown();
     }
 }
