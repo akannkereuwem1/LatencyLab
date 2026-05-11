@@ -16,8 +16,8 @@ public record RequestStep(
         Objects.requireNonNull(endpoint, "endpoint cannot be null");
         Objects.requireNonNull(headers, "headers cannot be null");
 
-        if (timeoutMillis < 1 || timeoutMillis > 300000) {
-            throw new IllegalArgumentException("timeoutMillis must be between 1 and 300000");
+        if (timeoutMillis < 0 || timeoutMillis > 300000) {
+            throw new IllegalArgumentException("timeoutMillis must be between 0 and 300000");
         }
 
         headers = Map.copyOf(headers);

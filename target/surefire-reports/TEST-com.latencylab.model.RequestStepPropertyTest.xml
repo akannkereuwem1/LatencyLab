@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.latencylab.model.RequestStepPropertyTest" time="0.386" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.latencylab.model.RequestStepPropertyTest" time="1.355" tests="3" errors="0" skipped="0" failures="1">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/Users/akan/Desktop/workspace/latencylab/target/test-classes:/Users/akan/Desktop/workspace/latencylab/target/classes:/Users/akan/.m2/repository/com/squareup/okhttp3/okhttp/4.12.0/okhttp-4.12.0.jar:/Users/akan/.m2/repository/com/squareup/okio/okio/3.6.0/okio-3.6.0.jar:/Users/akan/.m2/repository/com/squareup/okio/okio-jvm/3.6.0/okio-jvm-3.6.0.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.10/kotlin-stdlib-common-1.9.10.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.8.21/kotlin-stdlib-jdk8-1.8.21.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.8.21/kotlin-stdlib-1.8.21.jar:/Users/akan/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.21/kotlin-stdlib-jdk7-1.8.21.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.16.1/jackson-dataformat-yaml-2.16.1.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.16.1/jackson-databind-2.16.1.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.16.1/jackson-annotations-2.16.1.jar:/Users/akan/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.16.1/jackson-core-2.16.1.jar:/Users/akan/.m2/repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar:/Users/akan/.m2/repository/ch/qos/logback/logback-classic/1.5.3/logback-classic-1.5.3.jar:/Users/akan/.m2/repository/ch/qos/logback/logback-core/1.5.3/logback-core-1.5.3.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/Users/akan/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/akan/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/Users/akan/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:/Users/akan/.m2/repository/net/jqwik/jqwik/1.8.4/jqwik-1.8.4.jar:/Users/akan/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-api/1.8.4/jqwik-api-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-web/1.8.4/jqwik-web-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-time/1.8.4/jqwik-time-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-engine/1.8.4/jqwik-engine-1.8.4.jar:"/>
+    <property name="java.class.path" value="/Users/akan/Desktop/workspace/latencylab/target/test-classes:/Users/akan/Desktop/workspace/latencylab/target/classes:/Users/akan/.m2/repository/com/squareup/okhttp3/okhttp/4.12.0/okhttp-4.12.0.jar:/Users/akan/.m2/repository/com/squareup/okio/okio/3.6.0/okio-3.6.0.jar:/Users/akan/.m2/repository/com/squareup/okio/okio-jvm/3.6.0/okio-jvm-3.6.0.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.10/kotlin-stdlib-common-1.9.10.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.8.21/kotlin-stdlib-jdk8-1.8.21.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.8.21/kotlin-stdlib-1.8.21.jar:/Users/akan/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.21/kotlin-stdlib-jdk7-1.8.21.jar:/Users/akan/.m2/repository/com/squareup/okhttp3/mockwebserver/4.12.0/mockwebserver-4.12.0.jar:/Users/akan/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/akan/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.16.1/jackson-dataformat-yaml-2.16.1.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.16.1/jackson-databind-2.16.1.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.16.1/jackson-annotations-2.16.1.jar:/Users/akan/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.16.1/jackson-core-2.16.1.jar:/Users/akan/.m2/repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar:/Users/akan/.m2/repository/ch/qos/logback/logback-classic/1.5.3/logback-classic-1.5.3.jar:/Users/akan/.m2/repository/ch/qos/logback/logback-core/1.5.3/logback-core-1.5.3.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/Users/akan/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/akan/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/Users/akan/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:/Users/akan/.m2/repository/net/jqwik/jqwik/1.8.4/jqwik-1.8.4.jar:/Users/akan/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-api/1.8.4/jqwik-api-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-web/1.8.4/jqwik-web-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-time/1.8.4/jqwik-time-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-engine/1.8.4/jqwik-engine-1.8.4.jar:"/>
     <property name="java.vm.vendor" value="Eclipse Adoptium"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://adoptium.net/"/>
@@ -13,10 +13,10 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="GB"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/akan/Desktop/workspace/latencylab/target/surefire/surefirebooter-20260510084113970_3.jar /Users/akan/Desktop/workspace/latencylab/target/surefire 2026-05-10T08-41-13_620-jvmRun1 surefire-20260510084113970_1tmp surefire_0-20260510084113970_2tmp"/>
+    <property name="sun.java.command" value="/Users/akan/Desktop/workspace/latencylab/target/surefire/surefirebooter-20260511133303429_3.jar /Users/akan/Desktop/workspace/latencylab/target/surefire 2026-05-11T13-33-03_121-jvmRun1 surefire-20260511133303429_1tmp surefire_0-20260511133303429_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="/Users/akan/Desktop/workspace/latencylab/target/test-classes:/Users/akan/Desktop/workspace/latencylab/target/classes:/Users/akan/.m2/repository/com/squareup/okhttp3/okhttp/4.12.0/okhttp-4.12.0.jar:/Users/akan/.m2/repository/com/squareup/okio/okio/3.6.0/okio-3.6.0.jar:/Users/akan/.m2/repository/com/squareup/okio/okio-jvm/3.6.0/okio-jvm-3.6.0.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.10/kotlin-stdlib-common-1.9.10.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.8.21/kotlin-stdlib-jdk8-1.8.21.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.8.21/kotlin-stdlib-1.8.21.jar:/Users/akan/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.21/kotlin-stdlib-jdk7-1.8.21.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.16.1/jackson-dataformat-yaml-2.16.1.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.16.1/jackson-databind-2.16.1.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.16.1/jackson-annotations-2.16.1.jar:/Users/akan/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.16.1/jackson-core-2.16.1.jar:/Users/akan/.m2/repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar:/Users/akan/.m2/repository/ch/qos/logback/logback-classic/1.5.3/logback-classic-1.5.3.jar:/Users/akan/.m2/repository/ch/qos/logback/logback-core/1.5.3/logback-core-1.5.3.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/Users/akan/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/akan/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/Users/akan/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:/Users/akan/.m2/repository/net/jqwik/jqwik/1.8.4/jqwik-1.8.4.jar:/Users/akan/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-api/1.8.4/jqwik-api-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-web/1.8.4/jqwik-web-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-time/1.8.4/jqwik-time-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-engine/1.8.4/jqwik-engine-1.8.4.jar:"/>
+    <property name="surefire.test.class.path" value="/Users/akan/Desktop/workspace/latencylab/target/test-classes:/Users/akan/Desktop/workspace/latencylab/target/classes:/Users/akan/.m2/repository/com/squareup/okhttp3/okhttp/4.12.0/okhttp-4.12.0.jar:/Users/akan/.m2/repository/com/squareup/okio/okio/3.6.0/okio-3.6.0.jar:/Users/akan/.m2/repository/com/squareup/okio/okio-jvm/3.6.0/okio-jvm-3.6.0.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.10/kotlin-stdlib-common-1.9.10.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.8.21/kotlin-stdlib-jdk8-1.8.21.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.8.21/kotlin-stdlib-1.8.21.jar:/Users/akan/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.21/kotlin-stdlib-jdk7-1.8.21.jar:/Users/akan/.m2/repository/com/squareup/okhttp3/mockwebserver/4.12.0/mockwebserver-4.12.0.jar:/Users/akan/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/akan/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.16.1/jackson-dataformat-yaml-2.16.1.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.16.1/jackson-databind-2.16.1.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.16.1/jackson-annotations-2.16.1.jar:/Users/akan/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.16.1/jackson-core-2.16.1.jar:/Users/akan/.m2/repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar:/Users/akan/.m2/repository/ch/qos/logback/logback-classic/1.5.3/logback-classic-1.5.3.jar:/Users/akan/.m2/repository/ch/qos/logback/logback-core/1.5.3/logback-core-1.5.3.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/Users/akan/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/akan/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/Users/akan/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:/Users/akan/.m2/repository/net/jqwik/jqwik/1.8.4/jqwik-1.8.4.jar:/Users/akan/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-api/1.8.4/jqwik-api-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-web/1.8.4/jqwik-web-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-time/1.8.4/jqwik-time-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-engine/1.8.4/jqwik-engine-1.8.4.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/Users/akan"/>
     <property name="user.language" value="en"/>
@@ -30,7 +30,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/akan/Desktop/workspace/latencylab/target/surefire/surefirebooter-20260510084113970_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/akan/Desktop/workspace/latencylab/target/surefire/surefirebooter-20260511133303429_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="21.0.11+10-LTS"/>
@@ -49,6 +49,7 @@
     <property name="user.dir" value="/Users/akan/Desktop/workspace/latencylab"/>
     <property name="os.arch" value="x86_64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="failIfNoTests" value="false"/>
     <property name="native.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/akan/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
     <property name="java.vm.info" value="mixed mode"/>
@@ -59,8 +60,8 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="headersMapIsDefensivelyCopied" classname="com.latencylab.model.RequestStepPropertyTest" time="0.087">
-    <system-out><![CDATA[timestamp = 2026-05-10T08:41:23.279700, RequestStepPropertyTest:headersMapIsDefensivelyCopied = 
+  <testcase name="headersMapIsDefensivelyCopied" classname="com.latencylab.model.RequestStepPropertyTest" time="0.149">
+    <system-out><![CDATA[timestamp = 2026-05-11T13:33:12.113638, RequestStepPropertyTest:headersMapIsDefensivelyCopied = 
                               |-----------------------jqwik-----------------------
 tries = 100                   | # of calls to property
 checks = 100                  | # of not rejected calls
@@ -69,36 +70,132 @@ after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
 when-fixed-seed = ALLOW       | fixing the random seed is allowed
 edge-cases#mode = MIXIN       | edge cases are mixed in
 edge-cases#total = 108        | # of all combined edge cases
-edge-cases#tried = 13         | # of edge cases tried in current run
-seed = 6150150379041571945    | random seed to reproduce generated values
+edge-cases#tried = 18         | # of edge cases tried in current run
+seed = 2177217085321985052    | random seed to reproduce generated values
 
 
 ]]></system-out>
-    <system-err><![CDATA[May 10, 2026 8:41:23 AM net.jqwik.engine.properties.RandomizedShrinkablesGenerator logEdgeCasesOutnumberTriesIfApplicable
+    <system-err><![CDATA[May 11, 2026 1:33:12 PM net.jqwik.engine.properties.RandomizedShrinkablesGenerator logEdgeCasesOutnumberTriesIfApplicable
 INFO: Edge case generation exceeds number of tries. Stopped after 108 generated cases.
 ]]></system-err>
   </testcase>
-  <testcase name="rejectsOutOfRangeTimeoutMillis" classname="com.latencylab.model.RequestStepPropertyTest" time="0.152">
-    <system-out><![CDATA[timestamp = 2026-05-10T08:41:23.429506, RequestStepPropertyTest:rejectsOutOfRangeTimeoutMillis = 
+  <testcase name="rejectsOutOfRangeTimeoutMillis" classname="com.latencylab.model.RequestStepPropertyTest" time="0.941">
+    <failure message="Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3115)
+	at com.latencylab.model.RequestStepPropertyTest.rejectsOutOfRangeTimeoutMillis(RequestStepPropertyTest.java:50)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at net.jqwik.engine.execution.CheckedPropertyFactory.lambda$createRawFunction$1(CheckedPropertyFactory.java:84)
+	at net.jqwik.engine.execution.CheckedPropertyFactory.lambda$createRawFunction$2(CheckedPropertyFactory.java:91)
+	at net.jqwik.engine.properties.CheckedFunction.execute(CheckedFunction.java:17)
+	at net.jqwik.api.lifecycle.AroundTryHook.lambda$static$0(AroundTryHook.java:57)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$2(HookSupport.java:48)
+	at net.jqwik.engine.hooks.lifecycle.TryLifecycleMethodsHook.aroundTry(TryLifecycleMethodsHook.java:56)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$3(HookSupport.java:53)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$2(HookSupport.java:48)
+	at net.jqwik.engine.hooks.lifecycle.BeforeTryMembersHook.aroundTry(BeforeTryMembersHook.java:69)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$3(HookSupport.java:53)
+	at net.jqwik.engine.execution.CheckedPropertyFactory.lambda$createTryExecutor$0(CheckedPropertyFactory.java:60)
+	at net.jqwik.engine.execution.lifecycle.AroundTryLifecycle.execute(AroundTryLifecycle.java:23)
+	at net.jqwik.engine.properties.GenericProperty.lambda$createFalsifier$1(GenericProperty.java:229)
+	at net.jqwik.engine.properties.shrinking.PropertyShrinker.lambda$shrink$0(PropertyShrinker.java:55)
+	at net.jqwik.engine.properties.shrinking.PropertyShrinker.lambda$shrinkAsLongAsSampleImproves$6(PropertyShrinker.java:122)
+	at net.jqwik.engine.properties.shrinking.AbstractSampleShrinker.lambda$falsify$5(AbstractSampleShrinker.java:91)
+	at java.base/java.util.HashMap.computeIfAbsent(HashMap.java:1228)
+	at net.jqwik.engine.properties.shrinking.AbstractSampleShrinker.falsify(AbstractSampleShrinker.java:91)
+	at net.jqwik.engine.properties.shrinking.AbstractSampleShrinker.lambda$shrink$2(AbstractSampleShrinker.java:53)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base/java.util.stream.ReferencePipeline$15$1.accept(ReferencePipeline.java:541)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.tryAdvance(StreamSpliterators.java:300)
+	at net.jqwik.engine.support.StreamConcatenation$ConcatSpliterator.tryAdvance(StreamConcatenation.java:302)
+	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
+	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.FindOps$FindOp.evaluateSequential(FindOps.java:150)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.findAny(ReferencePipeline.java:652)
+	at net.jqwik.engine.properties.shrinking.AbstractSampleShrinker.shrink(AbstractSampleShrinker.java:63)
+	at net.jqwik.engine.properties.shrinking.OneAfterTheOtherParameterShrinker.shrinkSingleParameter(OneAfterTheOtherParameterShrinker.java:43)
+	at net.jqwik.engine.properties.shrinking.OneAfterTheOtherParameterShrinker.shrink(OneAfterTheOtherParameterShrinker.java:25)
+	at net.jqwik.engine.properties.shrinking.ShrinkingAlgorithm.shrinkOneParameterAfterTheOther(ShrinkingAlgorithm.java:52)
+	at net.jqwik.engine.properties.shrinking.ShrinkingAlgorithm.shrink(ShrinkingAlgorithm.java:32)
+	at net.jqwik.engine.properties.shrinking.PropertyShrinker.shrinkAsLongAsSampleImproves(PropertyShrinker.java:135)
+	at net.jqwik.engine.properties.shrinking.PropertyShrinker.lambda$shrink$3(PropertyShrinker.java:87)
+	at net.jqwik.engine.execution.lifecycle.CurrentTestDescriptor.runWithDescriptor(CurrentTestDescriptor.java:17)
+	at net.jqwik.engine.properties.shrinking.PropertyShrinker.lambda$withTimeout$4(PropertyShrinker.java:103)
+	at net.jqwik.engine.execution.lifecycle.CurrentDomainContext.runWithContext(CurrentDomainContext.java:28)
+	at net.jqwik.engine.properties.shrinking.PropertyShrinker.lambda$withTimeout$5(PropertyShrinker.java:101)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1760)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:387)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1312)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1843)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1808)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:188)
+]]></failure>
+    <system-out><![CDATA[timestamp = 2026-05-11T13:33:13.033665, RequestStepPropertyTest:rejectsOutOfRangeTimeoutMillis = 
+  org.opentest4j.AssertionFailedError:
+    Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+
                               |-----------------------jqwik-----------------------
-tries = 100                   | # of calls to property
-checks = 73                   | # of not rejected calls
+tries = 44                    | # of calls to property
+checks = 32                   | # of not rejected calls
 generation = RANDOMIZED       | parameters are randomly generated
 after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
 when-fixed-seed = ALLOW       | fixing the random seed is allowed
 edge-cases#mode = MIXIN       | edge cases are mixed in
 edge-cases#total = 108        | # of all combined edge cases
-edge-cases#tried = 21         | # of edge cases tried in current run
-seed = -6881779891087283352   | random seed to reproduce generated values
+edge-cases#tried = 7          | # of edge cases tried in current run
+seed = -6831457302673398998   | random seed to reproduce generated values
+
+Shrunk Sample (10 steps)
+------------------------
+  arg0: ""
+  arg1: GET
+  arg2: ""
+  arg3: ""
+  arg4: {}
+  arg5: 0
+
+Original Sample
+---------------
+  arg0: "쟨㨞巕茾ꓴ"
+  arg1: PUT
+  arg2: "ﾖ躉쒫略ﱉ㈮"
+  arg3: "먎⤍뗎긛"
+  arg4:
+    {
+      "鐓歕ꏀ燂䆨維힍"="⚌㴦谎﫥", 
+      "ᠶ〲ꋫ艜"="", 
+      "緳躣ᨹ셼"="", 
+      "僰쟸࿛聢뱜銌熾尴颥ꗺT㍵䣒㰚ꀊᐾおꉊ䕚辯䐎ꦥ鷚察嫺酤㭁ぽꍆ쓍뼁讷罈暝ɴ췙䫿い퍥뻆◅퇰꟭⧩ᷡ抦㾶菡듄襐⢏甠ؠᢋ⮀ℱ܁첁ᇇД璧矪杜᭽﷿烺΢ﺕ앇˗佪ⱪ戈૗㑊넋ᵪʽ뎇✢詒䦾쐼ﬣ㿱疬ᴓ礉䓹㹪ﾁ絬鵻䋤姕懃⹪ᲕﷸƜⳈ儘썾猩䀛蚋懷萭랜Ⱕˉ縿קﺩ樭깏ࡠ鏝ⱪ״鷽鮁槏柩㜧⯄२᷷묤鰲뤈椂ㅬƖ穫⍭猘ࠔ쩮可俋炱邾㞐髱⫟羛䷽⃯뷸崪ｧﲓ糑ꓬᘻ磹⛺됑欢揄❙亮줚濁矻밑ﵪ貂ዾ籏ヵ偣숯휃䟗髽꟩镇淰锞꿀痺뎏䎇鿅⑰ჹ╈蟚嘵࠹ⷙ“ꩉ䫹媽ᥱ먖皘ڲࠇ럃䙃嬵䙘㟵┑琅핢欉㶈᝚뮡뉝ブ왅敄ᄧ᧲驹䕆ꏈ᱅덏摀厅ᖧㄹ囻눾ꍠ뢩핤弎롢ᜡግ뫭䔆櫶辆莒쫇匯⪴땪嚛㪔㖾挑婇阔蒝䝨"=
+        "⪶턣둙఺䤋ﮫ绐입藯〡", 
+      "ਊ僌疽氥ꖖ놪ꓮ쉽꽯卆ᒃ翠輤娹軩暪⠽됂꼶⺿탞ᗩ孳㈃稸쾔䗝㳽妮亴溸쿫푯⺷霊쮀Ꮷꊸ騱ｯ멒㡱楀ꭔ촵愱䋫눚忻쫴쿓⥸씵銱奊䝢島ﮖ⥊ᒯ鲆퉟≦훣戌珧⃝⽥傱ﳨ邱ѵ᠇ﴥ璍뾐ꂰꙹ匁䰇㬪묢ꐹ䊠ጅ疹ㄛႣ핌搟諈룹鏨놗闵硧쟅稀ﭛĜ麠뱪ࣔ㯦ꨏỉ⑾㖤鉈픽髋螑仞舯秨倂냍ꆰꎶ棹껒ꇏ⌏꺊聾ᎍ瑠୪ꚍ鏙๯랹齴陵왺"=
+        "ᛤᗊ띺᎜欲㫁୪楢⧄", 
+      ""="ݍ", 
+      "硨桜郌儻울ṳ䈜㬋"=
+        "朸料⒌웮ཅ蜙㸚邗࿿삲ㇷ蘌蠨찭务稑뗅審䎍ᄬឈꭽ᥸鶑㬖䪞ểȃ唻䣐㬤駗殸쌎묽ꏸꢟ⼈탦䱙᱋툻䈳⻚놗♰躒塚㬹皝Ṃ꺧턑푞닔⢒싲왠笑₸踧㰬଩捑냹쨁⬤쑫䫡푽颫ꉸ輦랳⥠ᰝᙔ뛧ꝑݼ⓵ꍰ䞲磓租ᵪ썙憸煱奛ἢ⭽ꩉ咂꠶枛岋㿸ꑕ䒨鱎﫦욳땕Ṩŉ鷇 ި怱쉖妬电燆ᦈ嚩Ꮐྰྡﵻ큹첚葩턨猻ᒭ䪺朽器厱唻渃㔨냢끀꠺繽﹐캌鍝운顺즘﩯ջ蔼ꌂ漢䆀띁㳧⑱굷귥烧策촛芛牃᜿썩㛸뼵玦㶨㡙蟒칑痣鿙Ⳇ튲絊㥀僚ằ轾❚ᝇꜟ稜㶊矏傁摔ᚉ≫묍⾴䅩곯ߜ鸨酜鋪갑㌐똊㉼豃赎㒴׷㋌赬홑ઘ윻种캢曟㽅ᜅ렭࡝྾ᔯ斦땭ⲡ⯱觌♲둇肥ᄄ얉賕䪖퍳썩鍰⵪승꧹펫鄙뭁ᱼ麖始侪Ꮴゃᝤ숭켃쩱ퟓ䬜晲䂕쏿늮"
+    }
+  arg5: 0
+
+  Original Error
+  --------------
+  org.opentest4j.AssertionFailedError:
+    Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 
 
 ]]></system-out>
-    <system-err><![CDATA[May 10, 2026 8:41:23 AM net.jqwik.engine.properties.RandomizedShrinkablesGenerator logEdgeCasesOutnumberTriesIfApplicable
+    <system-err><![CDATA[May 11, 2026 1:33:12 PM net.jqwik.engine.properties.RandomizedShrinkablesGenerator logEdgeCasesOutnumberTriesIfApplicable
 INFO: Edge case generation exceeds number of tries. Stopped after 108 generated cases.
 ]]></system-err>
   </testcase>
-  <testcase name="constructionPreservesFieldValues" classname="com.latencylab.model.RequestStepPropertyTest" time="0.143">
-    <system-out><![CDATA[timestamp = 2026-05-10T08:41:23.576583, RequestStepPropertyTest:constructionPreservesFieldValues = 
+  <testcase name="constructionPreservesFieldValues" classname="com.latencylab.model.RequestStepPropertyTest" time="0.255">
+    <system-out><![CDATA[timestamp = 2026-05-11T13:33:13.316554, RequestStepPropertyTest:constructionPreservesFieldValues = 
                               |-----------------------jqwik-----------------------
 tries = 100                   | # of calls to property
 checks = 100                  | # of not rejected calls
@@ -107,12 +204,12 @@ after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
 when-fixed-seed = ALLOW       | fixing the random seed is allowed
 edge-cases#mode = MIXIN       | edge cases are mixed in
 edge-cases#total = 108        | # of all combined edge cases
-edge-cases#tried = 14         | # of edge cases tried in current run
-seed = -7758591846546698365   | random seed to reproduce generated values
+edge-cases#tried = 16         | # of edge cases tried in current run
+seed = -5290343543595363803   | random seed to reproduce generated values
 
 
 ]]></system-out>
-    <system-err><![CDATA[May 10, 2026 8:41:23 AM net.jqwik.engine.properties.RandomizedShrinkablesGenerator logEdgeCasesOutnumberTriesIfApplicable
+    <system-err><![CDATA[May 11, 2026 1:33:13 PM net.jqwik.engine.properties.RandomizedShrinkablesGenerator logEdgeCasesOutnumberTriesIfApplicable
 INFO: Edge case generation exceeds number of tries. Stopped after 108 generated cases.
 ]]></system-err>
   </testcase>
