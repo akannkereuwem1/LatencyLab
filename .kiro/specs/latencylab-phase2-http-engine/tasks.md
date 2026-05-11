@@ -45,11 +45,11 @@ Implement the two concrete runtime classes that bring the Phase 1 interface cont
     - Call `client.connectionPool().evictAll()` then `client.dispatcher().executorService().shutdown()`
     - _Requirements: 2.8, 2.9, 2.10, 2.11_
 
-- [ ] 3. Checkpoint — compile transport layer
+- [x] 3. Checkpoint — compile transport layer
   - Ensure `mvn compile` exits cleanly with no errors or unchecked-warning failures. Ask the user if questions arise.
 
-- [ ] 4. Write `OkHttpTransportLayerTest` — example tests
-  - [ ] 4.1 Create `OkHttpTransportLayerTest.java` in `src/test/java/com/latencylab/transport/`
+- [x] 4. Write `OkHttpTransportLayerTest` — example tests
+  - [x] 4.1 Create `OkHttpTransportLayerTest.java` in `src/test/java/com/latencylab/transport/`
     - Start `MockWebServer` in `@BeforeEach`, shut down in `@AfterEach`; construct `OkHttpTransportLayer` pointing at `mockWebServer.url("/").toString()`
     - `getRequest_returnsStatusAndBody`: enqueue 200 with body; assert `statusCode == 200`, `responseBody` matches, `latencyNanos >= 1`
     - `postRequest_withBody_sendsBody`: enqueue 201; assert recorded request has correct body
