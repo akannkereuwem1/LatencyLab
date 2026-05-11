@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.latencylab.transport.OkHttpTransportLayerTest" time="1.439" tests="12" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.latencylab.transport.OkHttpTransportLayerTest" time="1.96" tests="12" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="GB"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/akan/Desktop/workspace/latencylab/target/surefire/surefirebooter-20260511193446705_3.jar /Users/akan/Desktop/workspace/latencylab/target/surefire 2026-05-11T19-34-46_452-jvmRun1 surefire-20260511193446705_1tmp surefire_0-20260511193446705_2tmp"/>
+    <property name="sun.java.command" value="/Users/akan/Desktop/workspace/latencylab/target/surefire/surefirebooter-20260511215307347_3.jar /Users/akan/Desktop/workspace/latencylab/target/surefire 2026-05-11T21-53-06_643-jvmRun1 surefire-20260511215307347_1tmp surefire_0-20260511215307347_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/akan/Desktop/workspace/latencylab/target/test-classes:/Users/akan/Desktop/workspace/latencylab/target/classes:/Users/akan/.m2/repository/com/squareup/okhttp3/okhttp/4.12.0/okhttp-4.12.0.jar:/Users/akan/.m2/repository/com/squareup/okio/okio/3.6.0/okio-3.6.0.jar:/Users/akan/.m2/repository/com/squareup/okio/okio-jvm/3.6.0/okio-jvm-3.6.0.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.10/kotlin-stdlib-common-1.9.10.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.8.21/kotlin-stdlib-jdk8-1.8.21.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.8.21/kotlin-stdlib-1.8.21.jar:/Users/akan/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.21/kotlin-stdlib-jdk7-1.8.21.jar:/Users/akan/.m2/repository/com/squareup/okhttp3/mockwebserver/4.12.0/mockwebserver-4.12.0.jar:/Users/akan/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/akan/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.16.1/jackson-dataformat-yaml-2.16.1.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.16.1/jackson-databind-2.16.1.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.16.1/jackson-annotations-2.16.1.jar:/Users/akan/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.16.1/jackson-core-2.16.1.jar:/Users/akan/.m2/repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar:/Users/akan/.m2/repository/ch/qos/logback/logback-classic/1.5.3/logback-classic-1.5.3.jar:/Users/akan/.m2/repository/ch/qos/logback/logback-core/1.5.3/logback-core-1.5.3.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/Users/akan/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/akan/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/Users/akan/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:/Users/akan/.m2/repository/net/jqwik/jqwik/1.8.4/jqwik-1.8.4.jar:/Users/akan/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-api/1.8.4/jqwik-api-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-web/1.8.4/jqwik-web-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-time/1.8.4/jqwik-time-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-engine/1.8.4/jqwik-engine-1.8.4.jar:"/>
@@ -30,7 +30,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/akan/Desktop/workspace/latencylab/target/surefire/surefirebooter-20260511193446705_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/akan/Desktop/workspace/latencylab/target/surefire/surefirebooter-20260511215307347_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="21.0.11+10-LTS"/>
@@ -60,48 +60,48 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="deleteRequest_withBody_sendsBody" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.722">
-    <system-out><![CDATA[19:34:50.055 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'del-body': DELETE http://localhost:52798/del
-19:34:50.172 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'del-body': status 200, latency 97572130ns
+  <testcase name="deleteRequest_withBody_sendsBody" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.881">
+    <system-out><![CDATA[21:53:12.632 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'del-body': DELETE http://localhost:54767/del
+21:53:12.742 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'del-body': status 200, latency 89383407ns
 ]]></system-out>
   </testcase>
-  <testcase name="networkFailure_returnsStatusZero" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.032">
-    <system-out><![CDATA[19:34:50.218 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'fail': GET http://localhost:52800/fail
-19:34:50.233 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'fail': Failed to connect to localhost/[0:0:0:0:0:0:0:1]:52800
+  <testcase name="networkFailure_returnsStatusZero" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.028">
+    <system-out><![CDATA[21:53:12.792 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'fail': GET http://localhost:54769/fail
+21:53:12.809 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'fail': Failed to connect to localhost/[0:0:0:0:0:0:0:1]:54769
 ]]></system-out>
   </testcase>
-  <testcase name="nullBaseUrl_throwsIllegalArgumentException" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.007"/>
-  <testcase name="nullStep_throwsNullPointerException" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.005"/>
-  <testcase name="putRequest_withBody_sendsBody" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.015">
-    <system-out><![CDATA[19:34:50.270 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'put-test': PUT http://localhost:52805/put
-19:34:50.275 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'put-test': status 200, latency 3449159ns
+  <testcase name="nullBaseUrl_throwsIllegalArgumentException" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.008"/>
+  <testcase name="nullStep_throwsNullPointerException" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.007"/>
+  <testcase name="putRequest_withBody_sendsBody" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.012">
+    <system-out><![CDATA[21:53:12.842 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'put-test': PUT http://localhost:54774/put
+21:53:12.847 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'put-test': status 200, latency 4401141ns
 ]]></system-out>
   </testcase>
-  <testcase name="postRequest_nullBody_sendsEmptyBody" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.016">
-    <system-out><![CDATA[19:34:50.288 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'post-null': POST http://localhost:52807/null
-19:34:50.295 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'post-null': status 200, latency 7042313ns
+  <testcase name="postRequest_nullBody_sendsEmptyBody" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.029">
+    <system-out><![CDATA[21:53:12.856 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'post-null': POST http://localhost:54776/null
+21:53:12.873 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'post-null': status 200, latency 17233650ns
 ]]></system-out>
   </testcase>
-  <testcase name="deleteRequest_noBody_sendsNoBody" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.016">
-    <system-out><![CDATA[19:34:50.308 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'del-no-body': DELETE http://localhost:52809/del
-19:34:50.315 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'del-no-body': status 204, latency 5851108ns
+  <testcase name="deleteRequest_noBody_sendsNoBody" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.014">
+    <system-out><![CDATA[21:53:12.887 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'del-no-body': DELETE http://localhost:54778/del
+21:53:12.894 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'del-no-body': status 204, latency 6538102ns
 ]]></system-out>
   </testcase>
-  <testcase name="getRequest_returnsStatusAndBody" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.016">
-    <system-out><![CDATA[19:34:50.328 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'get-test': GET http://localhost:52811/test
-19:34:50.333 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'get-test': status 200, latency 3660233ns
+  <testcase name="getRequest_returnsStatusAndBody" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.012">
+    <system-out><![CDATA[21:53:12.906 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'get-test': GET http://localhost:54780/test
+21:53:12.909 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'get-test': status 200, latency 3115487ns
 ]]></system-out>
   </testcase>
-  <testcase name="postRequest_withBody_sendsBody" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.013">
-    <system-out><![CDATA[19:34:50.350 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'post-test': POST http://localhost:52813/post
-19:34:50.353 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'post-test': status 201, latency 2950841ns
+  <testcase name="postRequest_withBody_sendsBody" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.011">
+    <system-out><![CDATA[21:53:12.918 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'post-test': POST http://localhost:54782/post
+21:53:12.924 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'post-test': status 201, latency 5292239ns
 ]]></system-out>
   </testcase>
-  <testcase name="blankBaseUrl_throwsIllegalArgumentException" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.007"/>
-  <testcase name="executeAfterClose_throwsIllegalStateException" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.018"/>
-  <testcase name="patchRequest_withBody_sendsBody" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.021">
-    <system-out><![CDATA[19:34:50.400 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'patch-test': PATCH http://localhost:52817/patch
-19:34:50.403 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'patch-test': status 200, latency 3194182ns
+  <testcase name="blankBaseUrl_throwsIllegalArgumentException" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.008"/>
+  <testcase name="executeAfterClose_throwsIllegalStateException" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.006"/>
+  <testcase name="patchRequest_withBody_sendsBody" classname="com.latencylab.transport.OkHttpTransportLayerTest" time="0.011">
+    <system-out><![CDATA[21:53:12.951 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'patch-test': PATCH http://localhost:54786/patch
+21:53:12.955 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'patch-test': status 200, latency 3326152ns
 ]]></system-out>
   </testcase>
 </testsuite>

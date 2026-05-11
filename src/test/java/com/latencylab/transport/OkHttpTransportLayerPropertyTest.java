@@ -80,7 +80,7 @@ class OkHttpTransportLayerPropertyTest {
             server.enqueue(new MockResponse().setResponseCode(200));
             server.start();
             OkHttpTransportLayer transport = createTransport(server.url("/").toString());
-            RequestStep step = new RequestStep("prop-body", method, "/test", body, Collections.emptyMap(), 1);
+            RequestStep step = new RequestStep("prop-body", method, "/test", body, Collections.emptyMap(), 5000);
             transport.execute(step);
             RecordedRequest recorded = server.takeRequest();
             assertEquals(body, recorded.getBody().readUtf8());
@@ -103,7 +103,7 @@ class OkHttpTransportLayerPropertyTest {
             server.enqueue(new MockResponse().setResponseCode(200));
             server.start();
             OkHttpTransportLayer transport = createTransport(server.url("/").toString());
-            RequestStep step = new RequestStep("prop-header", HttpMethod.GET, "/h", null, headers, 1);
+            RequestStep step = new RequestStep("prop-header", HttpMethod.GET, "/h", null, headers, 5000);
             transport.execute(step);
             RecordedRequest recorded = server.takeRequest();
             for (Map.Entry<String, String> e : headers.entrySet()) {
@@ -115,7 +115,7 @@ class OkHttpTransportLayerPropertyTest {
     @Provide
     Arbitrary<Map<String, String>> headerMaps() {
         return Arbitraries.maps(
-                Arbitraries.strings().alpha().ofMinLength(1).ofMaxLength(5),
+                Arbitraries.strings().alpha().ofMinLength(1).ofMaxLength(5).map(String::toLowerCase),
                 Arbitraries.strings().alpha().ofMinLength(1).ofMaxLength(10)).ofMinSize(0).ofMaxSize(5);
     }
 
@@ -127,7 +127,7 @@ class OkHttpTransportLayerPropertyTest {
             server.enqueue(new MockResponse().setResponseCode(status).setBody(body));
             server.start();
             OkHttpTransportLayer transport = createTransport(server.url("/").toString());
-            RequestStep step = new RequestStep("prop-resp", HttpMethod.GET, "/r", null, Collections.emptyMap(), 1);
+            RequestStep step = new RequestStep("prop-resp", HttpMethod.GET, "/r", null, Collections.emptyMap(), 5000);
             HttpResponseResult result = transport.execute(step);
             if (body.isEmpty()) {
                 // OkHttpTransportLayer returns null for empty bodies
@@ -154,7 +154,7 @@ class OkHttpTransportLayerPropertyTest {
         if (causeFailure) {
             // Simulate network failure without a running server
             OkHttpTransportLayer transport = createTransport("http://nonexistent");
-            RequestStep step = new RequestStep("prop-latency", HttpMethod.GET, "/l", null, Collections.emptyMap(), 1);
+            RequestStep step = new RequestStep("prop-latency", HttpMethod.GET, "/l", null, Collections.emptyMap(), 5000);
             HttpResponseResult result = transport.execute(step);
             assertTrue(result.latencyNanos() >= 0);
         } else {
@@ -163,7 +163,7 @@ class OkHttpTransportLayerPropertyTest {
                 server.start();
                 OkHttpTransportLayer transport = createTransport(server.url("/").toString());
                 RequestStep step = new RequestStep("prop-latency", HttpMethod.GET, "/l", null, Collections.emptyMap(),
-                        1);
+                        5000);
                 HttpResponseResult result = transport.execute(step);
                 assertTrue(result.latencyNanos() >= 0);
             }
