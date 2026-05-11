@@ -8,4 +8,5 @@
 /Users/akan/Desktop/workspace/latencylab/src/test/java/com/latencylab/model/ScenarioTest.java
 /Users/akan/Desktop/workspace/latencylab/src/test/java/com/latencylab/model/VirtualUserPropertyTest.java
 /Users/akan/Desktop/workspace/latencylab/src/test/java/com/latencylab/model/VirtualUserTest.java
+/Users/akan/Desktop/workspace/latencylab/src/test/java/com/latencylab/transport/OkHttpTransportLayerPropertyTest.java
 /Users/akan/Desktop/workspace/latencylab/src/test/java/com/latencylab/transport/OkHttpTransportLayerTest.java

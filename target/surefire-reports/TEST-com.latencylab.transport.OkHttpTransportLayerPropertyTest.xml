@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.latencylab.transport.OkHttpTransportLayerPropertyTest" time="2.608" tests="7" errors="2" skipped="0" failures="1">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/akan/Desktop/workspace/latencylab/target/test-classes:/Users/akan/Desktop/workspace/latencylab/target/classes:/Users/akan/.m2/repository/com/squareup/okhttp3/okhttp/4.12.0/okhttp-4.12.0.jar:/Users/akan/.m2/repository/com/squareup/okio/okio/3.6.0/okio-3.6.0.jar:/Users/akan/.m2/repository/com/squareup/okio/okio-jvm/3.6.0/okio-jvm-3.6.0.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.10/kotlin-stdlib-common-1.9.10.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.8.21/kotlin-stdlib-jdk8-1.8.21.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.8.21/kotlin-stdlib-1.8.21.jar:/Users/akan/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.21/kotlin-stdlib-jdk7-1.8.21.jar:/Users/akan/.m2/repository/com/squareup/okhttp3/mockwebserver/4.12.0/mockwebserver-4.12.0.jar:/Users/akan/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/akan/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.16.1/jackson-dataformat-yaml-2.16.1.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.16.1/jackson-databind-2.16.1.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.16.1/jackson-annotations-2.16.1.jar:/Users/akan/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.16.1/jackson-core-2.16.1.jar:/Users/akan/.m2/repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar:/Users/akan/.m2/repository/ch/qos/logback/logback-classic/1.5.3/logback-classic-1.5.3.jar:/Users/akan/.m2/repository/ch/qos/logback/logback-core/1.5.3/logback-core-1.5.3.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/Users/akan/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/akan/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/Users/akan/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:/Users/akan/.m2/repository/net/jqwik/jqwik/1.8.4/jqwik-1.8.4.jar:/Users/akan/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-api/1.8.4/jqwik-api-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-web/1.8.4/jqwik-web-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-time/1.8.4/jqwik-time-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-engine/1.8.4/jqwik-engine-1.8.4.jar:"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Africa/Lagos"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="GB"/>
+    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/akan/Desktop/workspace/latencylab/target/surefire/surefirebooter-20260511193446705_3.jar /Users/akan/Desktop/workspace/latencylab/target/surefire 2026-05-11T19-34-46_452-jvmRun1 surefire-20260511193446705_1tmp surefire_0-20260511193446705_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/akan/Desktop/workspace/latencylab/target/test-classes:/Users/akan/Desktop/workspace/latencylab/target/classes:/Users/akan/.m2/repository/com/squareup/okhttp3/okhttp/4.12.0/okhttp-4.12.0.jar:/Users/akan/.m2/repository/com/squareup/okio/okio/3.6.0/okio-3.6.0.jar:/Users/akan/.m2/repository/com/squareup/okio/okio-jvm/3.6.0/okio-jvm-3.6.0.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.10/kotlin-stdlib-common-1.9.10.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.8.21/kotlin-stdlib-jdk8-1.8.21.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.8.21/kotlin-stdlib-1.8.21.jar:/Users/akan/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/Users/akan/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.21/kotlin-stdlib-jdk7-1.8.21.jar:/Users/akan/.m2/repository/com/squareup/okhttp3/mockwebserver/4.12.0/mockwebserver-4.12.0.jar:/Users/akan/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/akan/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.16.1/jackson-dataformat-yaml-2.16.1.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.16.1/jackson-databind-2.16.1.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.16.1/jackson-annotations-2.16.1.jar:/Users/akan/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar:/Users/akan/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.16.1/jackson-core-2.16.1.jar:/Users/akan/.m2/repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar:/Users/akan/.m2/repository/ch/qos/logback/logback-classic/1.5.3/logback-classic-1.5.3.jar:/Users/akan/.m2/repository/ch/qos/logback/logback-core/1.5.3/logback-core-1.5.3.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/Users/akan/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/akan/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar:/Users/akan/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/Users/akan/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:/Users/akan/.m2/repository/net/jqwik/jqwik/1.8.4/jqwik-1.8.4.jar:/Users/akan/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-api/1.8.4/jqwik-api-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-web/1.8.4/jqwik-web-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-time/1.8.4/jqwik-time-1.8.4.jar:/Users/akan/.m2/repository/net/jqwik/jqwik-engine/1.8.4/jqwik-engine-1.8.4.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/akan"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-04-21"/>
+    <property name="java.home" value="/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/akan/Desktop/workspace/latencylab"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/akan/Desktop/workspace/latencylab/target/surefire/surefirebooter-20260511193446705_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="21.0.11+10-LTS"/>
+    <property name="user.name" value="akan"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="12.7.6"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-21.0.11+10"/>
+    <property name="localRepository" value="/Users/akan/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/4m/wfc509cj0q503r_x1gq9ghhw0000gn/T/"/>
+    <property name="java.version" value="21.0.11"/>
+    <property name="user.dir" value="/Users/akan/Desktop/workspace/latencylab"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="failIfNoTests" value="false"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/akan/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="21.0.11+10-LTS"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="property closeIdempotent" classname="com.latencylab.transport.OkHttpTransportLayerPropertyTest" time="0.375">
+    <system-out><![CDATA[timestamp = 2026-05-11T19:34:52.015645, OkHttpTransportLayerPropertyTest:property closeIdempotent = 
+                              |-----------------------jqwik-----------------------
+tries = 9                     | # of calls to property
+checks = 9                    | # of not rejected calls
+generation = EXHAUSTIVE       | parameters are exhaustively generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 0          | # of all combined edge cases
+edge-cases#tried = 0          | # of edge cases tried in current run
+seed = -4518231221451092396   | random seed to reproduce generated values
+
+
+]]></system-out>
+  </testcase>
+  <testcase name="property bodyRoundTrip" classname="com.latencylab.transport.OkHttpTransportLayerPropertyTest" time="0.862">
+    <system-out><![CDATA[19:34:52.204 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52828/test
+19:34:52.208 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.214 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52830/test
+19:34:52.217 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.220 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52832/test
+19:34:52.223 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.226 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52834/test
+19:34:52.230 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.233 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52836/test
+19:34:52.236 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.238 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52838/test
+19:34:52.242 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': Read timed out
+19:34:52.245 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52840/test
+19:34:52.249 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2838494ns
+19:34:52.252 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52842/test
+19:34:52.255 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.262 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52844/test
+19:34:52.265 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2730758ns
+19:34:52.267 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52846/test
+19:34:52.272 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.278 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52848/test
+19:34:52.285 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.287 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52850/test
+19:34:52.290 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.294 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52852/test
+19:34:52.299 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': Read timed out
+19:34:52.302 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52854/test
+19:34:52.304 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2559110ns
+19:34:52.307 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52856/test
+19:34:52.311 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.314 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52858/test
+19:34:52.318 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.321 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52860/test
+19:34:52.324 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.326 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52862/test
+19:34:52.330 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.333 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52864/test
+19:34:52.336 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.339 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52866/test
+19:34:52.342 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': Read timed out
+19:34:52.345 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52868/test
+19:34:52.348 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.350 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52870/test
+19:34:52.353 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.356 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52872/test
+19:34:52.359 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': Read timed out
+19:34:52.362 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52874/test
+19:34:52.365 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2526333ns
+19:34:52.367 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52876/test
+19:34:52.370 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.372 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52878/test
+19:34:52.376 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.378 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52880/test
+19:34:52.382 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': Read timed out
+19:34:52.392 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52882/test
+19:34:52.399 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 4847382ns
+19:34:52.401 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52884/test
+19:34:52.405 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.408 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52886/test
+19:34:52.413 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.416 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52888/test
+19:34:52.420 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': Read timed out
+19:34:52.422 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52890/test
+19:34:52.425 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.428 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52892/test
+19:34:52.431 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.435 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52894/test
+19:34:52.438 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.440 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52896/test
+19:34:52.443 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.445 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52898/test
+19:34:52.449 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.451 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52900/test
+19:34:52.454 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.456 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52902/test
+19:34:52.458 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2148573ns
+19:34:52.461 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52904/test
+19:34:52.463 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2135453ns
+19:34:52.466 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52906/test
+19:34:52.469 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2336135ns
+19:34:52.472 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52908/test
+19:34:52.475 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.478 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52910/test
+19:34:52.481 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2882364ns
+19:34:52.486 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52912/test
+19:34:52.494 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': Read timed out
+19:34:52.498 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52914/test
+19:34:52.501 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2707274ns
+19:34:52.504 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52916/test
+19:34:52.507 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.509 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52918/test
+19:34:52.513 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.515 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52920/test
+19:34:52.517 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.520 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52922/test
+19:34:52.523 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2712570ns
+19:34:52.527 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52924/test
+19:34:52.530 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.532 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52926/test
+19:34:52.535 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2052840ns
+19:34:52.538 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52928/test
+19:34:52.541 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.543 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52930/test
+19:34:52.546 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2183286ns
+19:34:52.549 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52932/test
+19:34:52.552 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2486446ns
+19:34:52.555 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52934/test
+19:34:52.558 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.561 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52936/test
+19:34:52.566 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.570 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52938/test
+19:34:52.573 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': Read timed out
+19:34:52.575 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52940/test
+19:34:52.579 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.581 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52942/test
+19:34:52.585 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.587 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52944/test
+19:34:52.593 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.596 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52946/test
+19:34:52.599 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.601 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52948/test
+19:34:52.604 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2545780ns
+19:34:52.607 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52950/test
+19:34:52.610 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': Read timed out
+19:34:52.612 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52952/test
+19:34:52.614 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2143626ns
+19:34:52.617 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52954/test
+19:34:52.620 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.623 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52956/test
+19:34:52.626 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2414114ns
+19:34:52.628 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52958/test
+19:34:52.631 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.633 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52960/test
+19:34:52.635 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.637 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52962/test
+19:34:52.640 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2089226ns
+19:34:52.642 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52964/test
+19:34:52.644 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2323233ns
+19:34:52.647 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52966/test
+19:34:52.649 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2133244ns
+19:34:52.652 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52968/test
+19:34:52.654 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2371727ns
+19:34:52.657 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52970/test
+19:34:52.659 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2178672ns
+19:34:52.662 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52972/test
+19:34:52.665 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2686572ns
+19:34:52.667 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52974/test
+19:34:52.670 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.673 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52976/test
+19:34:52.675 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2485542ns
+19:34:52.678 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52978/test
+19:34:52.680 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2166959ns
+19:34:52.682 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52980/test
+19:34:52.685 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2197497ns
+19:34:52.687 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52982/test
+19:34:52.693 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.715 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52984/test
+19:34:52.722 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.726 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52986/test
+19:34:52.732 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.735 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52988/test
+19:34:52.738 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': Read timed out
+19:34:52.742 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52990/test
+19:34:52.747 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.749 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:52992/test
+19:34:52.752 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2154689ns
+19:34:52.754 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:52994/test
+19:34:52.757 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.759 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52996/test
+19:34:52.763 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.765 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:52998/test
+19:34:52.767 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2050013ns
+19:34:52.769 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:53000/test
+19:34:52.772 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.774 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:53002/test
+19:34:52.777 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.779 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:53004/test
+19:34:52.782 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.784 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:53006/test
+19:34:52.788 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.790 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:53008/test
+19:34:52.796 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': Read timed out
+19:34:52.806 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:53010/test
+19:34:52.809 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.823 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:53012/test
+19:34:52.828 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.835 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:53014/test
+19:34:52.838 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.840 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:53016/test
+19:34:52.843 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.846 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:53018/test
+19:34:52.850 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': timeout
+19:34:52.852 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': POST http://localhost:53020/test
+19:34:52.856 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': Read timed out
+19:34:52.859 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PUT http://localhost:53022/test
+19:34:52.862 [main] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-body': Read timed out
+19:34:52.865 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:53024/test
+19:34:52.870 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 4192821ns
+19:34:52.874 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-body': PATCH http://localhost:53026/test
+19:34:52.878 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-body': status 200, latency 2806532ns
+timestamp = 2026-05-11T19:34:52.880533, OkHttpTransportLayerPropertyTest:property bodyRoundTrip = 
+                              |-----------------------jqwik-----------------------
+tries = 100                   | # of calls to property
+checks = 100                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 4          | # of all combined edge cases
+edge-cases#tried = 4          | # of edge cases tried in current run
+seed = 4424040018660382031    | random seed to reproduce generated values
+
+
+]]></system-out>
+    <system-err><![CDATA[May 11, 2026 7:34:52 PM net.jqwik.engine.execution.AfterFailureParametersGenerator logAfterFailureHandling
+INFO: After Failure Handling: SAMPLE_FIRST, Previous Generation: <GenerationInfo(4424040018660382031, 1, [size=2])>
+]]></system-err>
+  </testcase>
+  <testcase name="property urlConstructionProducesSingleSlash" classname="com.latencylab.transport.OkHttpTransportLayerPropertyTest" time="0.445">
+    <system-out><![CDATA[timestamp = 2026-05-11T19:34:53.328297, OkHttpTransportLayerPropertyTest:property urlConstructionProducesSingleSlash = 
+                              |-----------------------jqwik-----------------------
+tries = 100                   | # of calls to property
+checks = 100                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 24         | # of all combined edge cases
+edge-cases#tried = 13         | # of edge cases tried in current run
+seed = 6677469992638402132    | random seed to reproduce generated values
+
+
+]]></system-out>
+  </testcase>
+  <testcase name="property blankBaseUrlThrows" classname="com.latencylab.transport.OkHttpTransportLayerPropertyTest" time="0.041">
+    <system-out><![CDATA[timestamp = 2026-05-11T19:34:53.370538, OkHttpTransportLayerPropertyTest:property blankBaseUrlThrows = 
+                              |-----------------------jqwik-----------------------
+tries = 100                   | # of calls to property
+checks = 100                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 2          | # of all combined edge cases
+edge-cases#tried = 2          | # of edge cases tried in current run
+seed = 2755118702963056159    | random seed to reproduce generated values
+
+
+]]></system-out>
+  </testcase>
+  <testcase name="property headerForwarding" classname="com.latencylab.transport.OkHttpTransportLayerPropertyTest" time="0.785">
+    <failure message="expected: &lt;B&gt; but was: &lt;A&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <B> but was: <A>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at com.latencylab.transport.OkHttpTransportLayerPropertyTest.property_headerForwarding(OkHttpTransportLayerPropertyTest.java:110)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at net.jqwik.engine.execution.CheckedPropertyFactory.lambda$createRawFunction$1(CheckedPropertyFactory.java:84)
+	at net.jqwik.engine.execution.CheckedPropertyFactory.lambda$createRawFunction$2(CheckedPropertyFactory.java:91)
+	at net.jqwik.engine.properties.CheckedFunction.execute(CheckedFunction.java:17)
+	at net.jqwik.api.lifecycle.AroundTryHook.lambda$static$0(AroundTryHook.java:57)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$2(HookSupport.java:48)
+	at net.jqwik.engine.hooks.lifecycle.TryLifecycleMethodsHook.aroundTry(TryLifecycleMethodsHook.java:56)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$3(HookSupport.java:53)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$2(HookSupport.java:48)
+	at net.jqwik.engine.hooks.lifecycle.BeforeTryMembersHook.aroundTry(BeforeTryMembersHook.java:69)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$3(HookSupport.java:53)
+	at net.jqwik.engine.execution.CheckedPropertyFactory.lambda$createTryExecutor$0(CheckedPropertyFactory.java:60)
+	at net.jqwik.engine.execution.lifecycle.AroundTryLifecycle.execute(AroundTryLifecycle.java:23)
+	at net.jqwik.engine.properties.GenericProperty.testPredicate(GenericProperty.java:166)
+	at net.jqwik.engine.properties.GenericProperty.check(GenericProperty.java:68)
+	at net.jqwik.engine.execution.CheckedProperty.check(CheckedProperty.java:67)
+	at net.jqwik.engine.execution.PropertyMethodExecutor.executeProperty(PropertyMethodExecutor.java:90)
+	at net.jqwik.engine.execution.PropertyMethodExecutor.executeMethod(PropertyMethodExecutor.java:69)
+	at net.jqwik.engine.execution.PropertyMethodExecutor.lambda$execute$0(PropertyMethodExecutor.java:49)
+	at net.jqwik.api.lifecycle.AroundPropertyHook.lambda$static$0(AroundPropertyHook.java:46)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$0(HookSupport.java:26)
+	at net.jqwik.api.lifecycle.PropertyExecutor.executeAndFinally(PropertyExecutor.java:39)
+	at net.jqwik.engine.hooks.lifecycle.PropertyLifecycleMethodsHook.aroundProperty(PropertyLifecycleMethodsHook.java:56)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$1(HookSupport.java:31)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$0(HookSupport.java:26)
+	at net.jqwik.engine.hooks.statistics.StatisticsHook.aroundProperty(StatisticsHook.java:37)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$1(HookSupport.java:31)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$0(HookSupport.java:26)
+	at net.jqwik.engine.hooks.lifecycle.AutoCloseableHook.aroundProperty(AutoCloseableHook.java:13)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$1(HookSupport.java:31)
+	at net.jqwik.engine.execution.PropertyMethodExecutor.execute(PropertyMethodExecutor.java:47)
+	at net.jqwik.engine.execution.PropertyTaskCreator.executeTestMethod(PropertyTaskCreator.java:166)
+	at net.jqwik.engine.execution.PropertyTaskCreator.lambda$createTask$1(PropertyTaskCreator.java:51)
+	at net.jqwik.engine.execution.lifecycle.CurrentDomainContext.runWithContext(CurrentDomainContext.java:28)
+	at net.jqwik.engine.execution.PropertyTaskCreator.lambda$createTask$2(PropertyTaskCreator.java:50)
+	at net.jqwik.engine.execution.pipeline.ExecutionTask$1.lambda$execute$0(ExecutionTask.java:31)
+	at net.jqwik.engine.execution.lifecycle.CurrentTestDescriptor.runWithDescriptor(CurrentTestDescriptor.java:17)
+	at net.jqwik.engine.execution.pipeline.ExecutionTask$1.execute(ExecutionTask.java:31)
+	at net.jqwik.engine.execution.pipeline.ExecutionPipeline.runToTermination(ExecutionPipeline.java:82)
+	at net.jqwik.engine.execution.JqwikExecutor.execute(JqwikExecutor.java:46)
+	at net.jqwik.engine.JqwikTestEngine.executeTests(JqwikTestEngine.java:70)
+	at net.jqwik.engine.JqwikTestEngine.execute(JqwikTestEngine.java:53)
+]]></failure>
+    <system-out><![CDATA[19:34:54.056 [main] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-header': GET http://localhost:53028/h
+19:34:54.059 [main] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-header': status 200, latency 2665505ns
+19:34:54.070 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-header': GET http://localhost:53030/h
+19:34:54.073 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-header': status 200, latency 2253805ns
+19:34:54.076 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-header': GET http://localhost:53032/h
+19:34:54.078 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-header': status 200, latency 1952293ns
+19:34:54.081 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-header': GET http://localhost:53034/h
+19:34:54.083 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-header': status 200, latency 2297281ns
+19:34:54.087 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-header': GET http://localhost:53036/h
+19:34:54.089 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-header': status 200, latency 2375896ns
+19:34:54.094 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-header': GET http://localhost:53038/h
+19:34:54.097 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-header': Read timed out
+19:34:54.102 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-header': GET http://localhost:53040/h
+19:34:54.104 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-header': status 200, latency 2271670ns
+19:34:54.107 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-header': GET http://localhost:53042/h
+19:34:54.110 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-header': timeout
+19:34:54.113 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-header': GET http://localhost:53044/h
+19:34:54.115 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Failed request step 'prop-header': timeout
+19:34:54.118 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Dispatching request step 'prop-header': GET http://localhost:53046/h
+19:34:54.120 [ForkJoinPool.commonPool-worker-1] DEBUG c.l.transport.OkHttpTransportLayer - Completed request step 'prop-header': status 200, latency 2244051ns
+timestamp = 2026-05-11T19:34:54.150163, OkHttpTransportLayerPropertyTest:property headerForwarding = 
+  org.opentest4j.AssertionFailedError:
+    expected: <B> but was: <A>
+
+                              |-----------------------jqwik-----------------------
+tries = 1                     | # of calls to property
+checks = 1                    | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 17         | # of all combined edge cases
+edge-cases#tried = 6          | # of edge cases tried in current run
+seed = -8456433980578110436   | random seed to reproduce generated values
+
+Sample
+------
+  arg0: {"a"="A", "A"="B"}
+
+
+]]></system-out>
+    <system-err><![CDATA[May 11, 2026 7:34:53 PM net.jqwik.engine.execution.AfterFailureParametersGenerator logAfterFailureHandling
+INFO: After Failure Handling: SAMPLE_FIRST, Previous Generation: <GenerationInfo(-8456433980578110436, 17, [size=183])>
+]]></system-err>
+  </testcase>
+  <testcase name="property latencyNonNegative" classname="com.latencylab.transport.OkHttpTransportLayerPropertyTest" time="0.02">
+    <error message="timeoutMillis must be between 0 and 300000" type="java.lang.IllegalArgumentException"><![CDATA[java.lang.IllegalArgumentException: timeoutMillis must be between 0 and 300000
+	at com.latencylab.model.RequestStep.<init>(RequestStep.java:20)
+	at com.latencylab.transport.OkHttpTransportLayerPropertyTest.property_latencyNonNegative(OkHttpTransportLayerPropertyTest.java:157)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at net.jqwik.engine.execution.CheckedPropertyFactory.lambda$createRawFunction$1(CheckedPropertyFactory.java:84)
+	at net.jqwik.engine.execution.CheckedPropertyFactory.lambda$createRawFunction$2(CheckedPropertyFactory.java:91)
+	at net.jqwik.engine.properties.CheckedFunction.execute(CheckedFunction.java:17)
+	at net.jqwik.api.lifecycle.AroundTryHook.lambda$static$0(AroundTryHook.java:57)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$2(HookSupport.java:48)
+	at net.jqwik.engine.hooks.lifecycle.TryLifecycleMethodsHook.aroundTry(TryLifecycleMethodsHook.java:56)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$3(HookSupport.java:53)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$2(HookSupport.java:48)
+	at net.jqwik.engine.hooks.lifecycle.BeforeTryMembersHook.aroundTry(BeforeTryMembersHook.java:69)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$3(HookSupport.java:53)
+	at net.jqwik.engine.execution.CheckedPropertyFactory.lambda$createTryExecutor$0(CheckedPropertyFactory.java:60)
+	at net.jqwik.engine.execution.lifecycle.AroundTryLifecycle.execute(AroundTryLifecycle.java:23)
+	at net.jqwik.engine.properties.GenericProperty.testPredicate(GenericProperty.java:166)
+	at net.jqwik.engine.properties.GenericProperty.check(GenericProperty.java:68)
+	at net.jqwik.engine.execution.CheckedProperty.check(CheckedProperty.java:67)
+	at net.jqwik.engine.execution.PropertyMethodExecutor.executeProperty(PropertyMethodExecutor.java:90)
+	at net.jqwik.engine.execution.PropertyMethodExecutor.executeMethod(PropertyMethodExecutor.java:69)
+	at net.jqwik.engine.execution.PropertyMethodExecutor.lambda$execute$0(PropertyMethodExecutor.java:49)
+	at net.jqwik.api.lifecycle.AroundPropertyHook.lambda$static$0(AroundPropertyHook.java:46)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$0(HookSupport.java:26)
+	at net.jqwik.api.lifecycle.PropertyExecutor.executeAndFinally(PropertyExecutor.java:39)
+	at net.jqwik.engine.hooks.lifecycle.PropertyLifecycleMethodsHook.aroundProperty(PropertyLifecycleMethodsHook.java:56)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$1(HookSupport.java:31)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$0(HookSupport.java:26)
+	at net.jqwik.engine.hooks.statistics.StatisticsHook.aroundProperty(StatisticsHook.java:37)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$1(HookSupport.java:31)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$0(HookSupport.java:26)
+	at net.jqwik.engine.hooks.lifecycle.AutoCloseableHook.aroundProperty(AutoCloseableHook.java:13)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$1(HookSupport.java:31)
+	at net.jqwik.engine.execution.PropertyMethodExecutor.execute(PropertyMethodExecutor.java:47)
+	at net.jqwik.engine.execution.PropertyTaskCreator.executeTestMethod(PropertyTaskCreator.java:166)
+	at net.jqwik.engine.execution.PropertyTaskCreator.lambda$createTask$1(PropertyTaskCreator.java:51)
+	at net.jqwik.engine.execution.lifecycle.CurrentDomainContext.runWithContext(CurrentDomainContext.java:28)
+	at net.jqwik.engine.execution.PropertyTaskCreator.lambda$createTask$2(PropertyTaskCreator.java:50)
+	at net.jqwik.engine.execution.pipeline.ExecutionTask$1.lambda$execute$0(ExecutionTask.java:31)
+	at net.jqwik.engine.execution.lifecycle.CurrentTestDescriptor.runWithDescriptor(CurrentTestDescriptor.java:17)
+	at net.jqwik.engine.execution.pipeline.ExecutionTask$1.execute(ExecutionTask.java:31)
+	at net.jqwik.engine.execution.pipeline.ExecutionPipeline.runToTermination(ExecutionPipeline.java:82)
+	at net.jqwik.engine.execution.JqwikExecutor.execute(JqwikExecutor.java:46)
+	at net.jqwik.engine.JqwikTestEngine.executeTests(JqwikTestEngine.java:70)
+	at net.jqwik.engine.JqwikTestEngine.execute(JqwikTestEngine.java:53)
+]]></error>
+    <system-out><![CDATA[timestamp = 2026-05-11T19:34:54.181782, OkHttpTransportLayerPropertyTest:property latencyNonNegative = 
+  java.lang.IllegalArgumentException:
+    timeoutMillis must be between 0 and 300000
+
+                              |-----------------------jqwik-----------------------
+tries = 1                     | # of calls to property
+checks = 1                    | # of not rejected calls
+generation = EXHAUSTIVE       | parameters are exhaustively generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 0          | # of all combined edge cases
+edge-cases#tried = 0          | # of edge cases tried in current run
+seed = 2828420012947076784    | random seed to reproduce generated values
+
+Sample
+------
+  arg0: true
+
+
+]]></system-out>
+    <system-err><![CDATA[May 11, 2026 7:34:54 PM net.jqwik.engine.execution.AfterFailureParametersGenerator logAfterFailureHandling
+INFO: After Failure Handling: SAMPLE_FIRST, Previous Generation: <GenerationInfo(2828420012947076784, 1, [])>
+]]></system-err>
+  </testcase>
+  <testcase name="property responseFieldPreservation" classname="com.latencylab.transport.OkHttpTransportLayerPropertyTest" time="0.038">
+    <error message="timeoutMillis must be between 0 and 300000" type="java.lang.IllegalArgumentException"><![CDATA[java.lang.IllegalArgumentException: timeoutMillis must be between 0 and 300000
+	at com.latencylab.model.RequestStep.<init>(RequestStep.java:20)
+	at com.latencylab.transport.OkHttpTransportLayerPropertyTest.property_responseFieldPreservation(OkHttpTransportLayerPropertyTest.java:130)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at net.jqwik.engine.execution.CheckedPropertyFactory.lambda$createRawFunction$1(CheckedPropertyFactory.java:84)
+	at net.jqwik.engine.execution.CheckedPropertyFactory.lambda$createRawFunction$2(CheckedPropertyFactory.java:91)
+	at net.jqwik.engine.properties.CheckedFunction.execute(CheckedFunction.java:17)
+	at net.jqwik.api.lifecycle.AroundTryHook.lambda$static$0(AroundTryHook.java:57)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$2(HookSupport.java:48)
+	at net.jqwik.engine.hooks.lifecycle.TryLifecycleMethodsHook.aroundTry(TryLifecycleMethodsHook.java:56)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$3(HookSupport.java:53)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$2(HookSupport.java:48)
+	at net.jqwik.engine.hooks.lifecycle.BeforeTryMembersHook.aroundTry(BeforeTryMembersHook.java:69)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$3(HookSupport.java:53)
+	at net.jqwik.engine.execution.CheckedPropertyFactory.lambda$createTryExecutor$0(CheckedPropertyFactory.java:60)
+	at net.jqwik.engine.execution.lifecycle.AroundTryLifecycle.execute(AroundTryLifecycle.java:23)
+	at net.jqwik.engine.properties.GenericProperty.testPredicate(GenericProperty.java:166)
+	at net.jqwik.engine.properties.GenericProperty.check(GenericProperty.java:68)
+	at net.jqwik.engine.execution.CheckedProperty.check(CheckedProperty.java:67)
+	at net.jqwik.engine.execution.PropertyMethodExecutor.executeProperty(PropertyMethodExecutor.java:90)
+	at net.jqwik.engine.execution.PropertyMethodExecutor.executeMethod(PropertyMethodExecutor.java:69)
+	at net.jqwik.engine.execution.PropertyMethodExecutor.lambda$execute$0(PropertyMethodExecutor.java:49)
+	at net.jqwik.api.lifecycle.AroundPropertyHook.lambda$static$0(AroundPropertyHook.java:46)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$0(HookSupport.java:26)
+	at net.jqwik.api.lifecycle.PropertyExecutor.executeAndFinally(PropertyExecutor.java:39)
+	at net.jqwik.engine.hooks.lifecycle.PropertyLifecycleMethodsHook.aroundProperty(PropertyLifecycleMethodsHook.java:56)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$1(HookSupport.java:31)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$0(HookSupport.java:26)
+	at net.jqwik.engine.hooks.statistics.StatisticsHook.aroundProperty(StatisticsHook.java:37)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$1(HookSupport.java:31)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$0(HookSupport.java:26)
+	at net.jqwik.engine.hooks.lifecycle.AutoCloseableHook.aroundProperty(AutoCloseableHook.java:13)
+	at net.jqwik.engine.execution.lifecycle.HookSupport.lambda$wrap$1(HookSupport.java:31)
+	at net.jqwik.engine.execution.PropertyMethodExecutor.execute(PropertyMethodExecutor.java:47)
+	at net.jqwik.engine.execution.PropertyTaskCreator.executeTestMethod(PropertyTaskCreator.java:166)
+	at net.jqwik.engine.execution.PropertyTaskCreator.lambda$createTask$1(PropertyTaskCreator.java:51)
+	at net.jqwik.engine.execution.lifecycle.CurrentDomainContext.runWithContext(CurrentDomainContext.java:28)
+	at net.jqwik.engine.execution.PropertyTaskCreator.lambda$createTask$2(PropertyTaskCreator.java:50)
+	at net.jqwik.engine.execution.pipeline.ExecutionTask$1.lambda$execute$0(ExecutionTask.java:31)
+	at net.jqwik.engine.execution.lifecycle.CurrentTestDescriptor.runWithDescriptor(CurrentTestDescriptor.java:17)
+	at net.jqwik.engine.execution.pipeline.ExecutionTask$1.execute(ExecutionTask.java:31)
+	at net.jqwik.engine.execution.pipeline.ExecutionPipeline.runToTermination(ExecutionPipeline.java:82)
+	at net.jqwik.engine.execution.JqwikExecutor.execute(JqwikExecutor.java:46)
+	at net.jqwik.engine.JqwikTestEngine.executeTests(JqwikTestEngine.java:70)
+	at net.jqwik.engine.JqwikTestEngine.execute(JqwikTestEngine.java:53)
+]]></error>
+    <system-out><![CDATA[timestamp = 2026-05-11T19:34:54.222247, OkHttpTransportLayerPropertyTest:property responseFieldPreservation = 
+  java.lang.IllegalArgumentException:
+    timeoutMillis must be between 0 and 300000
+
+                              |-----------------------jqwik-----------------------
+tries = 1                     | # of calls to property
+checks = 1                    | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 12         | # of all combined edge cases
+edge-cases#tried = 3          | # of edge cases tried in current run
+seed = -6751536165006859913   | random seed to reproduce generated values
+
+Sample
+------
+  arg0: 200
+  arg1: ""
+
+
+]]></system-out>
+    <system-err><![CDATA[May 11, 2026 7:34:54 PM net.jqwik.engine.execution.AfterFailureParametersGenerator logAfterFailureHandling
+INFO: After Failure Handling: SAMPLE_FIRST, Previous Generation: <GenerationInfo(-6751536165006859913, 8, [size=14, size=2])>
+]]></system-err>
+  </testcase>
+</testsuite>

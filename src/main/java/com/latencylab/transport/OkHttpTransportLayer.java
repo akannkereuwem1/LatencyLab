@@ -68,7 +68,7 @@ public class OkHttpTransportLayer implements HttpTransportLayer, Closeable {
 
         if (step.headers() != null) {
             for (Map.Entry<String, String> entry : step.headers().entrySet()) {
-                builder.addHeader(entry.getKey(), entry.getValue());
+                builder.header(entry.getKey(), entry.getValue());
             }
         }
 

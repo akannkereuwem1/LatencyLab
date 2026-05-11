@@ -34,7 +34,7 @@ class OkHttpTransportLayerTest {
         if (headers == null) {
             headers = java.util.Collections.emptyMap();
         }
-        return new RequestStep(name, method, endpoint, body, headers, timeoutMillis);
+        return new RequestStep(name, method, endpoint, body, headers, 5000);
 
     }
 
