@@ -99,6 +99,30 @@ class OkHttpTransportLayerTest {
     }
 
     @Test
+    void putRequest_withBody_sendsBody() throws Exception {
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200));
+        RequestStep rs = step("put-test", HttpMethod.PUT, "/put", "payload", null, 0);
+        HttpResponseResult result = transport.execute(rs);
+        assertEquals(200, result.statusCode());
+        var recorded = mockWebServer.takeRequest();
+        assertEquals("PUT", recorded.getMethod());
+        assertEquals("payload", recorded.getBody().readUtf8());
+        assertEquals("application/json; charset=utf-8", recorded.getHeader("Content-Type"));
+    }
+
+    @Test
+    void patchRequest_withBody_sendsBody() throws Exception {
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200));
+        RequestStep rs = step("patch-test", HttpMethod.PATCH, "/patch", "payload", null, 0);
+        HttpResponseResult result = transport.execute(rs);
+        assertEquals(200, result.statusCode());
+        var recorded = mockWebServer.takeRequest();
+        assertEquals("PATCH", recorded.getMethod());
+        assertEquals("payload", recorded.getBody().readUtf8());
+        assertEquals("application/json; charset=utf-8", recorded.getHeader("Content-Type"));
+    }
+
+    @Test
     void networkFailure_returnsStatusZero() throws Exception {
         mockWebServer.shutdown(); // force connection failure
         RequestStep rs = step("fail", HttpMethod.GET, "/fail", null, null, 0);
