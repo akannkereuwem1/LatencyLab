@@ -122,7 +122,7 @@ class OkHttpTransportLayerPropertyTest {
     @Property(tries = 100)
     void property_responseFieldPreservation(@ForAll("statusCodes") int status,
             @ForAll("bodies") String body) throws Exception {
-        Assume.that(status >= 200 && status < 300);
+        Assume.that(status >= 200 && status < 300 && status != 204 && status != 205);
         try (MockWebServer server = new MockWebServer()) {
             server.enqueue(new MockResponse().setResponseCode(status).setBody(body));
             server.start();

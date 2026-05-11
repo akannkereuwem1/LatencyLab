@@ -133,12 +133,9 @@ public class OkHttpTransportLayer implements HttpTransportLayer, Closeable {
             long endNanos = System.nanoTime();
             int statusCode = response.code();
             ResponseBody responseBody = response.body();
-            String bodyString = null;
-            if (responseBody != null) {
-                byte[] bytes = responseBody.bytes();
-                if (bytes.length > 0) {
-                    bodyString = new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
-                }
+            String bodyString = (responseBody != null) ? responseBody.string() : null;
+            if (bodyString != null && bodyString.isEmpty()) {
+                bodyString = null;
             }
             long latencyNanos = endNanos - startNanos;
             log.debug("Completed request step '{}': status {}, latency {}ns", step.name(), statusCode, latencyNanos);
