@@ -137,8 +137,8 @@ Implement the two concrete runtime classes that bring the Phase 1 interface cont
     - Join all threads; on `InterruptedException` re-interrupt current thread and break
     - _Requirements: 4.1, 4.4, 4.8, 4.9_
 
-- [ ] 8. Write `DefaultVirtualUserEngineTest` — example tests
-  - [ ] 8.1 Create `DefaultVirtualUserEngineTest.java` in `src/test/java/com/latencylab/engine/`
+- [x] 8. Write `DefaultVirtualUserEngineTest` — example tests
+  - [x] 8.1 Create `DefaultVirtualUserEngineTest.java` in `src/test/java/com/latencylab/engine/`
     - Define inner class `CountingTransport implements HttpTransportLayer`: records invocation count per step name; returns `HttpResponseResult(200, "ok", 1000L)`
     - Define inner class `FailingTransport implements HttpTransportLayer`: throws `RuntimeException("simulated failure")` on every call
     - `initialize_returnsCorrectListSize`: `initialize(scenario, 5)` → list size 5
@@ -155,30 +155,30 @@ Implement the two concrete runtime classes that bring the Phase 1 interface cont
     - `execute_failingTransport_otherUsersComplete`: 1 failing user + 2 normal users → normal users complete all steps (verify via `CountingTransport` counts)
     - _Requirements: 3.2, 3.3, 3.4, 3.5, 4.1, 4.4, 4.7, 4.8, 4.9, 7.3, 7.5_
 
-- [ ] 9. Write `DefaultVirtualUserEngineTest` — property tests
+- [x] 9. Write `DefaultVirtualUserEngineTest` — property tests
   - [ ]* 9.1 Write property test for initialize list structure (Property 8)
     - `// Feature: latencylab-phase2-http-engine, Property 8: initialize returns a correctly structured list for any valid userCount`
     - `@Property(tries = 100)`: generate `userCount` in [1, 1000] and a valid `Scenario`; assert list size equals `userCount`; assert every element at index `i` has `userId == "user-" + (i+1)`, `state == IDLE`, `activeScenario == scenario`, `metricsSnapshot == null`; assert list is unmodifiable
     - **Property 8: initialize returns a correctly structured list for any valid userCount**
     - **Validates: Requirements 3.2, 3.3**
 
-  - [ ]* 9.2 Write property test for per-user exception isolation (Property 9)
+  - [x]* 9.2 Write property test for per-user exception isolation (Property 9)
     - `// Feature: latencylab-phase2-http-engine, Property 9: Per-user exception isolation — failing users do not affect other users`
     - `@Property(tries = 100)`: generate total user count N in [2, 20]; designate exactly one user's transport call to throw; use a `SelectiveFailingTransport` that fails only for a specific `userId`; assert `execute` returns normally and all non-failing users had their steps invoked the expected number of times
     - **Property 9: Per-user exception isolation — failing users do not affect other users**
     - **Validates: Requirements 4.7**
 
-- [ ] 10. Write interface compliance reflection tests
+- [x] 10. Write interface compliance reflection tests
   - [ ] 10.1 Add `OkHttpTransportLayerComplianceTest` in `src/test/java/com/latencylab/transport/`
     - Assert `HttpTransportLayer.class.isAssignableFrom(OkHttpTransportLayer.class)` returns `true`
     - Assert `java.io.Closeable.class.isAssignableFrom(OkHttpTransportLayer.class)` returns `true`
     - _Requirements: 7.2_
 
-  - [ ] 10.2 Add `DefaultVirtualUserEngineComplianceTest` in `src/test/java/com/latencylab/engine/`
+  - [x] 10.2 Add `DefaultVirtualUserEngineComplianceTest` in `src/test/java/com/latencylab/engine/`
     - Assert `VirtualUserEngine.class.isAssignableFrom(DefaultVirtualUserEngine.class)` returns `true`
     - _Requirements: 7.3_
 
-- [ ] 11. Final Checkpoint — full `mvn verify`
+- [x] 11. Final Checkpoint — full `mvn verify`
   - Run `mvn verify` and confirm `BUILD SUCCESS` with all tests discovered and passing. Ask the user if questions arise.
 
 ## Notes
