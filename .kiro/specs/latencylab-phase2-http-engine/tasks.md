@@ -111,27 +111,27 @@ Implement the two concrete runtime classes that bring the Phase 1 interface cont
 - [x] 6. Checkpoint — transport tests pass
   - Run `mvn test -pl . -Dtest=OkHttpTransportLayerTest` and confirm all example and property tests pass. Ask the user if questions arise.
 
-- [ ] 7. Implement `DefaultVirtualUserEngine`
-  - [ ] 7.1 Create `DefaultVirtualUserEngine.java` in `src/main/java/com/latencylab/engine/`
+- [x] 7. Implement `DefaultVirtualUserEngine`
+  - [x] 7.1 Create `DefaultVirtualUserEngine.java` in `src/main/java/com/latencylab/engine/`
     - Declare `public class DefaultVirtualUserEngine implements VirtualUserEngine`
     - Add `private static final Logger log = LoggerFactory.getLogger(DefaultVirtualUserEngine.class)`
     - Constructor: `Objects.requireNonNull(transport, "transport must not be null")`; store as `private final HttpTransportLayer transport`
     - _Requirements: 3.1_
 
-  - [ ] 7.2 Implement `initialize(Scenario scenario, int userCount)` method
+  - [x] 7.2 Implement `initialize(Scenario scenario, int userCount)` method
     - `Objects.requireNonNull(scenario, "scenario must not be null")`; `userCount < 1` → `IllegalArgumentException`
     - Build `ArrayList<VirtualUser>` of size `userCount`; element at index `i` has `userId = "user-" + (i+1)`, `state = VirtualUserState.IDLE`, `activeScenario = scenario`, `metricsSnapshot = null`
     - Return `Collections.unmodifiableList(users)`
     - _Requirements: 3.2, 3.3, 3.4, 3.5_
 
-  - [ ] 7.3 Implement `runUser(VirtualUser user, Scenario scenario)` private method
+  - [x] 7.3 Implement `runUser(VirtualUser user, Scenario scenario)` private method
     - Create new `VirtualUser` record with `state = RUNNING`; log DEBUG start message with `userId` and step count
     - Iterate `scenario.steps()` sequentially; call `transport.execute(step)` for each; store result locally (not aggregated)
     - On success: create new `VirtualUser` record with `state = COMPLETED`; log DEBUG completion message
     - Catch `Exception e`: create new `VirtualUser` record with `state = FAILED`; log ERROR with `userId`, current `step.name()`, and exception; break — do not propagate
     - _Requirements: 4.2, 4.3, 4.5, 4.6, 4.7, 4.10_
 
-  - [ ] 7.4 Implement `execute(List<VirtualUser> users, Scenario scenario)` method
+  - [x] 7.4 Implement `execute(List<VirtualUser> users, Scenario scenario)` method
     - `Objects.requireNonNull(users, ...)` and `Objects.requireNonNull(scenario, ...)`; empty list → return immediately
     - For each user: `Thread.ofVirtual().name("vuser-" + user.userId()).start(() -> runUser(user, scenario))`; collect all threads
     - Join all threads; on `InterruptedException` re-interrupt current thread and break
