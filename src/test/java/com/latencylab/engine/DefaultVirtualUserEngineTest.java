@@ -228,29 +228,27 @@ class DefaultVirtualUserEngineTest {
         // We approximate this by having a transport that fails on the first few calls
         // then succeeds (simulating different users having different outcomes)
         
-        class EventuallySucceedingTransport implements HttpTransportLayer {
-            private final int failCount;
-            private final AtomicInteger callCount = new AtomicInteger(0);
-            
-            EventuallySucceedingTransport(int failCount) {
-                this.failCount = failCount;
-            }
+         class EventuallySucceedingTransport implements HttpTransportLayer {
+             private final int failCount;
+             private final AtomicInteger callCount = new AtomicInteger(0);
 
-            @Override
-            public HttpResponseResult execute(RequestStep step) {
-                int currentCall = callCount.incrementAndGet();
-                if (currentCall <= failCount) {
-                    throw new RuntimeException("simulated failure on call " + currentCall);
-                }
-                // Succeed after the specified number of failures
-                return new HttpResponseResult(200, "ok", 1000L);
-            }
+             EventuallySucceedingTransport(int failCount) {
+                 this.failCount = failCount;
+             }
 
-            @Override
-            public void close() {
-                // No-op
-            }
-        }
+             public HttpResponseResult execute(RequestStep step) {
+                 int currentCall = callCount.incrementAndGet();
+                 if (currentCall <= failCount) {
+                     throw new RuntimeException("simulated failure on call " + currentCall);
+                 }
+                 // Succeed after the specified number of failures.
+                 return new HttpResponseResult(200, "ok", 1000L);
+             }
+
+             public void close() {
+                 // No-op
+             }
+         }
 
         // Configure to fail on first call, succeed on second and third
         // This simulates: user1 fails, user2 succeeds, user3 succeeds (assuming sequential execution for simplicity)

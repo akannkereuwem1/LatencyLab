@@ -2,15 +2,19 @@
 
 LatencyLab is a high-performance, lightweight load-testing CLI tool built in **Java 21**. It is designed to be exceptionally fast and efficient, prioritizing low startup latency and minimal resource usage by strictly avoiding heavy frameworks (like Spring Boot) and instead leveraging modern Java features such as Virtual Threads (Project Loom).
 
-## Features (Phase 1)
+## Features
 
-LatencyLab is currently in its initial setup phase. The current implementation provides a robust, heavily tested foundation for the upcoming execution engine:
+LatencyLab provides a robust, heavily tested foundation for load testing with the following features:
 
 *   **Immutable Data Models:** Thread-safe models built using Java `record` types (`Scenario`, `RequestStep`, `MetricsSnapshot`, `VirtualUser`).
 *   **Correct-by-Construction Validation:** Compact constructors strictly enforce logical boundaries, numerical limits, and defensive copying to guarantee data integrity across threads.
 *   **Property-Based Testing Suite:** Comprehensive tests using **jqwik** and JUnit 5 to continuously validate logic against thousands of edge-case variations.
 *   **Modular Architecture:** Cleanly defined component interfaces (`ScenarioParser`, `LoadScheduler`, `VirtualUserEngine`, `HttpTransportLayer`, `MetricsEngine`, `ReportingEngine`).
 *   **CLI Scaffold:** A native, dependency-minimal CLI entry point with configured SLF4J / Logback integration for ultra-fast startup.
+*   **HTTP Execution Engine (Phase 2):** 
+    *   `OkHttpTransportLayer`: High-performance HTTP transport layer backed by OkHttp 4.12.0 with connection pooling, timeout handling, and idempotent close.
+    *   `DefaultVirtualUserEngine`: Virtual user orchestration engine using Java 21 virtual threads for lightweight concurrency.
+    *   Comprehensive test suite including unit tests and property-based tests (jqwik) ensuring correctness and reliability.
 
 ## Prerequisites
 
@@ -35,13 +39,11 @@ The compiled artifact will be available at:
 
 ## Usage
 
-You can run the CLI tool directly from the generated Uber-JAR. Currently, the CLI parses basic arguments and prepares the environment for the simulation engine.
+You can run the CLI tool directly from the generated Uber-JAR. The CLI parses basic arguments and prepares the environment for the simulation engine.
 
 ```bash
 java -jar target/latencylab-0.1.0-SNAPSHOT.jar --config path/to/scenario.yaml
 ```
-
-*(Note: The core simulation engine, HTTP transport layer, and scenario parsing logic are scheduled for Phase 2 development.)*
 
 ## Architecture & Technology Stack
 
