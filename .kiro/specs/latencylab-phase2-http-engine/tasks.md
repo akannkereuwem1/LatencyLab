@@ -65,50 +65,50 @@ Implement the two concrete runtime classes that bring the Phase 1 interface cont
     - `blankBaseUrl_throwsIllegalArgumentException`: `new OkHttpTransportLayer("   ")` → IAE message contains `"baseUrl"`
     - _Requirements: 1.3, 1.4, 1.5, 1.8, 1.9, 1.11, 2.11, 2.12, 2.13, 2.14, 7.2, 7.4_
 
-- [ ] 5. Write `OkHttpTransportLayerTest` — property tests
-  - [ ]* 5.1 Write property test for URL construction (Property 1)
+- [x] 5. Write `OkHttpTransportLayerTest` — property tests
+  - [x]* 5.1 Write property test for URL construction (Property 1)
     - `// Feature: latencylab-phase2-http-engine, Property 1: URL construction produces exactly one separator slash`
     - `@Property(tries = 100)`: generate random alpha `baseUrl` strings (with/without trailing slashes) and `endpoint` strings (with/without leading slashes); construct `OkHttpTransportLayer`, call `buildUrl` via reflection or via a full round-trip through `MockWebServer`; assert the recorded request path has exactly one `/` at the join boundary
     - **Property 1: URL construction produces exactly one separator slash**
     - **Validates: Requirements 1.2**
 
-  - [ ]* 5.2 Write property test for body round-trip on POST/PUT/PATCH (Property 2)
+  - [x]* 5.2 Write property test for body round-trip on POST/PUT/PATCH (Property 2)
     - `// Feature: latencylab-phase2-http-engine, Property 2: Request body round-trip for POST, PUT, and PATCH`
     - `@Property(tries = 100)`: generate random non-null body strings and one of `{POST, PUT, PATCH}`; enqueue 200 on `MockWebServer`; assert recorded request body equals original string
     - **Property 2: Request body round-trip for POST, PUT, and PATCH**
     - **Validates: Requirements 1.4, 6.2, 6.3, 6.4**
 
-  - [ ]* 5.3 Write property test for header forwarding (Property 3)
+  - [x]* 5.3 Write property test for header forwarding (Property 3)
     - `// Feature: latencylab-phase2-http-engine, Property 3: All request headers are forwarded to the server`
     - `@Property(tries = 100)`: generate random `Map<String, String>` of headers; enqueue 200; assert every key-value pair appears in the recorded request headers
     - **Property 3: All request headers are forwarded to the server**
     - **Validates: Requirements 1.6**
 
-  - [ ]* 5.4 Write property test for response field preservation (Property 4)
+  - [x]* 5.4 Write property test for response field preservation (Property 4)
     - `// Feature: latencylab-phase2-http-engine, Property 4: Response fields are preserved in HttpResponseResult`
     - `@Property(tries = 100)`: generate random status codes in [200, 299] (MockWebServer constraint) and random body strings; assert `result.statusCode()` and `result.responseBody()` match served values
     - **Property 4: Response fields are preserved in HttpResponseResult**
     - **Validates: Requirements 1.8**
 
-  - [ ]* 5.5 Write property test for non-negative latency (Property 5)
+  - [x]* 5.5 Write property test for non-negative latency (Property 5)
     - `// Feature: latencylab-phase2-http-engine, Property 5: latencyNanos is non-negative for all outcomes`
     - `@Property(tries = 100)`: alternate between successful responses and network failures; assert `result.latencyNanos() >= 0` in all cases
     - **Property 5: latencyNanos is non-negative for all outcomes**
     - **Validates: Requirements 5.3, 5.5**
 
-  - [ ]* 5.6 Write property test for blank baseUrl validation (Property 6)
+  - [x]* 5.6 Write property test for blank baseUrl validation (Property 6)
     - `// Feature: latencylab-phase2-http-engine, Property 6: Blank baseUrl always throws IllegalArgumentException`
     - `@Property(tries = 100)`: generate strings composed entirely of `{' ', '\t', '\n'}` with `ofMinLength(1)`; assert `new OkHttpTransportLayer(whitespace)` throws `IllegalArgumentException` with message containing `"baseUrl"`
     - **Property 6: Blank baseUrl always throws IllegalArgumentException**
     - **Validates: Requirements 2.14**
 
-  - [ ]* 5.7 Write property test for close idempotency (Property 7)
+  - [x] 5.7 Write property test for close idempotency (Property 7)
     - `// Feature: latencylab-phase2-http-engine, Property 7: close() is idempotent`
     - `@Property(tries = 100)`: generate random call count N in [2, 10]; call `close()` N times on the same instance; assert no exception is thrown on any call after the first
     - **Property 7: close() is idempotent**
     - **Validates: Requirements 2.11**
 
-- [ ] 6. Checkpoint — transport tests pass
+- [x] 6. Checkpoint — transport tests pass
   - Run `mvn test -pl . -Dtest=OkHttpTransportLayerTest` and confirm all example and property tests pass. Ask the user if questions arise.
 
 - [ ] 7. Implement `DefaultVirtualUserEngine`
