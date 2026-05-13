@@ -231,22 +231,20 @@ class DefaultVirtualUserEngineTest {
          class EventuallySucceedingTransport implements HttpTransportLayer {
              private final int failCount;
              private final AtomicInteger callCount = new AtomicInteger(0);
-             
+
              EventuallySucceedingTransport(int failCount) {
                  this.failCount = failCount;
              }
- 
-             @Override
+
              public HttpResponseResult execute(RequestStep step) {
                  int currentCall = callCount.incrementAndGet();
                  if (currentCall <= failCount) {
                      throw new RuntimeException("simulated failure on call " + currentCall);
                  }
-                 // Succeed after the specified number of failures
+                 // Succeed after the specified number of failures.
                  return new HttpResponseResult(200, "ok", 1000L);
              }
- 
-             @Override
+
              public void close() {
                  // No-op
              }
