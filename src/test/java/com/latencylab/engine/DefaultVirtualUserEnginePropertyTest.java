@@ -1,6 +1,8 @@
 package com.latencylab.engine;
 
 import com.latencylab.model.*;
+import com.latencylab.metrics.MetricsEngine;
+import com.latencylab.model.MetricsSnapshot;
 import com.latencylab.transport.HttpTransportLayer;
 import com.latencylab.transport.HttpResponseResult;
 
@@ -21,6 +23,19 @@ import static org.junit.jupiter.api.Assertions.*;
  * Property-based tests for DefaultVirtualUserEngine.
  */
 class DefaultVirtualUserEnginePropertyTest {
+    
+     /** No-op MetricsEngine for testing */
+     static class NoOpMetricsEngine implements MetricsEngine {
+         @Override
+         public void record(long latencyNanos, boolean success) {
+             // No-op
+         }
+ 
+         @Override
+         public MetricsSnapshot snapshot() {
+             return null;
+         }
+     }
 
     // Helper to create a scenario with given step count
     private Scenario createScenario(int stepCount) {
@@ -101,7 +116,8 @@ class DefaultVirtualUserEnginePropertyTest {
         
         Scenario scenario = createScenario(stepCount);
         DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
-                new RecordingTransport(new HttpResponseResult(200, "ok", 1000L)));
+                new RecordingTransport(new HttpResponseResult(200, "ok", 1000L)),
+                new NoOpMetricsEngine());
 
         List<VirtualUser> users = engine.initialize(scenario, userCount);
 
@@ -135,13 +151,13 @@ class DefaultVirtualUserEnginePropertyTest {
         Scenario scenario = createScenario(3); // 3 steps per user
         HttpResponseResult successResult = new HttpResponseResult(200, "ok", 1000L);
         
-        // Transport that fails for a specific user (approximated by call count)
-        // We'll make it fail on the first step of the targeted user
-        SelectiveFailingTransport transport = new SelectiveFailingTransport(
-                adjustedFailingIndex * 3 + 1, // Fail on first step of failing user
-                successResult);
-        
-        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(transport);
+         // Transport that fails for a specific user (approximated by call count)
+         // We'll make it fail on the first step of the targeted user
+         SelectiveFailingTransport transport = new SelectiveFailingTransport(
+                 adjustedFailingIndex * 3 + 1, // Fail on first step of failing user
+                 successResult);
+         
+         DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(transport, new NoOpMetricsEngine());
 
         // Initialize users
         List<VirtualUser> users = engine.initialize(scenario, totalUserCount);
@@ -173,7 +189,8 @@ class DefaultVirtualUserEnginePropertyTest {
         
         Scenario scenario = createScenario(stepCount);
         DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
-                new RecordingTransport(new HttpResponseResult(200, "ok", 1000L)));
+                new RecordingTransport(new HttpResponseResult(200, "ok", 1000L)),
+                new NoOpMetricsEngine());
 
         List<VirtualUser> users = engine.initialize(scenario, userCount);
 

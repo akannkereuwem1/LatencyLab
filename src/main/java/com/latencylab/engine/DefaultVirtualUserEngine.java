@@ -1,8 +1,10 @@
 package com.latencylab.engine;
 
+import com.latencylab.metrics.MetricsEngine;
 import com.latencylab.model.Scenario;
 import com.latencylab.model.VirtualUser;
 import com.latencylab.model.VirtualUserState;
+import com.latencylab.transport.HttpResponseResult;
 import com.latencylab.transport.HttpTransportLayer;
 
 import org.slf4j.Logger;
@@ -10,22 +12,49 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Default implementation of VirtualUserEngine using Java 21 virtual threads.
+ *
+ * <p>Each virtual user runs in its own virtual thread. The engine supports
+ * pause/resume via a CountDownLatch and graceful shutdown via an AtomicBoolean
+ * shutdown signal. Per-user state is tracked in a ConcurrentHashMap.
  */
 public class DefaultVirtualUserEngine implements VirtualUserEngine {
 
     private static final Logger log = LoggerFactory.getLogger(DefaultVirtualUserEngine.class);
-    private final HttpTransportLayer transport;
 
-    public DefaultVirtualUserEngine(HttpTransportLayer transport) {
+    private final HttpTransportLayer transport;
+    private final MetricsEngine metricsEngine;
+    private final AtomicBoolean shutdownSignal = new AtomicBoolean(false);
+    private final AtomicReference<CountDownLatch> pauseLatch = new AtomicReference<>(new CountDownLatch(0));
+    private final ConcurrentHashMap<String, VirtualUserState> userStateRegistry = new ConcurrentHashMap<>();
+
+    /**
+     * Constructs a DefaultVirtualUserEngine.
+     *
+     * @param transport     the HTTP transport layer used to execute request steps
+     * @param metricsEngine the metrics engine used to record per-request results
+     * @throws NullPointerException if transport or metricsEngine is null
+     */
+    public DefaultVirtualUserEngine(HttpTransportLayer transport, MetricsEngine metricsEngine) {
         Objects.requireNonNull(transport, "transport must not be null");
+        Objects.requireNonNull(metricsEngine, "metricsEngine must not be null");
         this.transport = transport;
+        this.metricsEngine = metricsEngine;
     }
+
+    // -------------------------------------------------------------------------
+    // VirtualUserEngine interface
+    // -------------------------------------------------------------------------
 
     @Override
     public List<VirtualUser> initialize(Scenario scenario, int userCount) {
@@ -37,13 +66,7 @@ public class DefaultVirtualUserEngine implements VirtualUserEngine {
         List<VirtualUser> users = new ArrayList<>(userCount);
         for (int i = 0; i < userCount; i++) {
             String userId = "user-" + (i + 1);
-            VirtualUser user = new VirtualUser(
-                    userId,
-                    VirtualUserState.IDLE,
-                    scenario,
-                    null
-            );
-            users.add(user);
+            users.add(new VirtualUser(userId, VirtualUserState.IDLE, scenario, null));
         }
         return Collections.unmodifiableList(users);
     }
@@ -52,23 +75,25 @@ public class DefaultVirtualUserEngine implements VirtualUserEngine {
     public void execute(List<VirtualUser> users, Scenario scenario) {
         Objects.requireNonNull(users, "users must not be null");
         Objects.requireNonNull(scenario, "scenario must not be null");
-        
+
         if (users.isEmpty()) {
             return;
         }
 
-        List<Thread> threads = new ArrayList<>(users.size());
-        ThreadFactory virtualThreadFactory = Thread.ofVirtual()
-                .name("vuser-", 0)
-                .factory();
+        // Return immediately if shutdown signal is already set
+        if (shutdownSignal.get()) {
+            return;
+        }
 
+        List<Thread> threads = new ArrayList<>(users.size());
         for (VirtualUser user : users) {
-            Thread thread = virtualThreadFactory.newThread(() -> runUser(user, scenario));
-            thread.start();
+            Thread thread = Thread.ofVirtual()
+                    .name("vuser-" + user.userId())
+                    .start(() -> runUser(user, scenario));
             threads.add(thread);
         }
 
-        // Join all threads
+        // Block until all virtual threads have terminated
         for (Thread thread : threads) {
             try {
                 thread.join();
@@ -77,51 +102,122 @@ public class DefaultVirtualUserEngine implements VirtualUserEngine {
                 break;
             }
         }
+
+        if (shutdownSignal.get()) {
+            log.info("All virtual users have stopped");
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // Lifecycle API (not part of VirtualUserEngine interface)
+    // -------------------------------------------------------------------------
+
+    /**
+     * Returns the current state of the virtual user with the given userId.
+     * Returns {@link VirtualUserState#IDLE} if the userId is not found.
+     */
+    public VirtualUserState getState(String userId) {
+        return userStateRegistry.getOrDefault(userId, VirtualUserState.IDLE);
     }
 
     /**
-     * Runs a single virtual user through all steps in a scenario.
-     * 
-     * @param user the virtual user to run
-     * @param scenario the scenario to execute
+     * Returns an unmodifiable snapshot of all user states.
+     */
+    public Map<String, VirtualUserState> getStates() {
+        return Collections.unmodifiableMap(new HashMap<>(userStateRegistry));
+    }
+
+    /**
+     * Pauses all virtual user threads at the next inter-step boundary.
+     * Replaces the current latch with a new unreleased one.
+     */
+    public void pause() {
+        pauseLatch.set(new CountDownLatch(1));
+    }
+
+    /**
+     * Resumes all paused virtual user threads. No-op if not currently paused.
+     */
+    public void resume() {
+        pauseLatch.get().countDown();
+    }
+
+    /**
+     * Signals all virtual user threads to stop after their current in-flight call.
+     * Also releases any threads blocked on the pause latch. Idempotent.
+     */
+    public void stop() {
+        shutdownSignal.set(true);
+        // Release any threads blocked on the pause latch so they can observe the signal
+        pauseLatch.get().countDown();
+    }
+
+    // -------------------------------------------------------------------------
+    // Per-user execution
+    // -------------------------------------------------------------------------
+
+    /**
+     * Runs a single virtual user through all steps in the scenario.
+     * Called from within a virtual thread.
      */
     private void runUser(VirtualUser user, Scenario scenario) {
-        // Create new VirtualUser record with RUNNING state
-        VirtualUser runningUser = new VirtualUser(
-                user.userId(),
-                VirtualUserState.RUNNING,
-                user.activeScenario(),
-                user.metricsSnapshot()
-        );
-        
-        log.debug("Starting virtual user '{}' with {} steps", 
-                runningUser.userId(), scenario.steps().size());
+        String userId = user.userId();
+        userStateRegistry.put(userId, VirtualUserState.RUNNING);
+        log.debug("Starting user {} with {} steps", userId, scenario.steps().size());
 
-        // Execute each step sequentially
         for (var step : scenario.steps()) {
+            HttpResponseResult result;
             try {
-                transport.execute(step);
-                // Continue to next step on success
+                result = transport.execute(step);
             } catch (Exception e) {
-                // On any exception, mark user as FAILED and break
-                log.error("Virtual user '{}' failed at step '{}': {}", 
-                        user.userId(), step.name(), e.getMessage(), e);
-                
-                VirtualUser failedUser = new VirtualUser(
-                        user.userId(),
-                        VirtualUserState.FAILED,
-                        user.activeScenario(),
-                        user.metricsSnapshot()
-                );
-                // In a full implementation, we might update some shared state here
-                // For now, we just break as the method doesn't return the final state
-                break;
+                // If the exception wraps or is caused by an interruption, treat as clean stop
+                if (e.getCause() instanceof InterruptedException || Thread.currentThread().isInterrupted()) {
+                    Thread.currentThread().interrupt();
+                    log.debug("User {} stopped due to interrupt", userId);
+                    userStateRegistry.put(userId, VirtualUserState.COMPLETED);
+                    return;
+                }
+                log.error("Virtual user '{}' failed at step '{}': {}", userId, step.name(), e.getMessage(), e);
+                userStateRegistry.put(userId, VirtualUserState.FAILED);
+                return;
+            }
+
+            // Record metrics immediately after transport returns, before any signal checks
+            try {
+                boolean success = result.statusCode() >= 200 && result.statusCode() <= 299;
+                metricsEngine.record(result.latencyNanos(), success);
+            } catch (Exception e) {
+                log.error("MetricsEngine.record failed for user '{}': {}", userId, e.getMessage(), e);
+                userStateRegistry.put(userId, VirtualUserState.FAILED);
+                return;
+            }
+
+            // Check shutdown signal before proceeding to next step
+            if (shutdownSignal.get()) {
+                log.debug("User {} stopped", userId);
+                userStateRegistry.put(userId, VirtualUserState.COMPLETED);
+                return;
+            }
+
+            // Check pause latch
+            try {
+                pauseLatch.get().await();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                log.debug("User {} stopped after resume", userId);
+                userStateRegistry.put(userId, VirtualUserState.COMPLETED);
+                return;
+            }
+
+            // Re-check shutdown signal after latch release
+            if (shutdownSignal.get()) {
+                log.debug("User {} stopped after resume", userId);
+                userStateRegistry.put(userId, VirtualUserState.COMPLETED);
+                return;
             }
         }
 
-        // If we completed all steps, mark as COMPLETED
-        // Note: We don't have a way to return the final state from this void method
-        // In a more complete implementation, we might collect results or use callbacks
-        log.debug("Completed virtual user '{}'", user.userId());
+        log.debug("User {} completed", userId);
+        userStateRegistry.put(userId, VirtualUserState.COMPLETED);
     }
 }

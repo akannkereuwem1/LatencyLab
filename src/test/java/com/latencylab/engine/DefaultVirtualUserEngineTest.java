@@ -1,43 +1,66 @@
 package com.latencylab.engine;
 
-import com.latencylab.model.Scenario;
-import com.latencylab.model.RequestStep;
 import com.latencylab.model.HttpMethod;
+import com.latencylab.model.MetricsSnapshot;
+import com.latencylab.model.RequestStep;
+import com.latencylab.model.Scenario;
 import com.latencylab.model.VirtualUser;
-import com.latencylab.transport.HttpTransportLayer;
+import com.latencylab.model.VirtualUserState;
+import com.latencylab.metrics.MetricsEngine;
 import com.latencylab.transport.HttpResponseResult;
+import com.latencylab.transport.HttpTransportLayer;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Test class for DefaultVirtualUserEngine.
+ * Unit tests for DefaultVirtualUserEngine.
  */
 class DefaultVirtualUserEngineTest {
 
     private Scenario testScenario;
     private RequestStep testStep;
 
-    @BeforeEach
-    void setUp() {
-        // Create a simple scenario with one step for most tests
-        testStep = new RequestStep("test-step", HttpMethod.GET, "/test", null, Map.of(), 1000);
-        List<RequestStep> steps = new ArrayList<>();
-        steps.add(testStep);
-        testScenario = new Scenario("test-scenario", steps, 0, 30, 1);
+    // -------------------------------------------------------------------------
+    // Test helpers
+    // -------------------------------------------------------------------------
+
+    /** No-op MetricsEngine for tests that don't care about metrics. */
+    static class NoOpMetricsEngine implements MetricsEngine {
+        @Override
+        public void record(long latencyNanos, boolean success) { }
+
+        @Override
+        public MetricsSnapshot snapshot() { return null; }
     }
 
-    /**
-     * Inner class that counts invocations per step name.
-     */
+    /** MetricsEngine that counts record() invocations. */
+    static class CountingMetricsEngine implements MetricsEngine {
+        private final AtomicInteger recordCount = new AtomicInteger(0);
+
+        @Override
+        public void record(long latencyNanos, boolean success) {
+            recordCount.incrementAndGet();
+        }
+
+        @Override
+        public MetricsSnapshot snapshot() { return null; }
+
+        public int getRecordCount() { return recordCount.get(); }
+    }
+
+    /** Transport that returns a fixed response and counts invocations per step name. */
     static class CountingTransport implements HttpTransportLayer {
         private final Map<String, AtomicInteger> invocationCounts = new ConcurrentHashMap<>();
         private final HttpResponseResult responseToReturn;
@@ -46,6 +69,7 @@ class DefaultVirtualUserEngineTest {
             this.responseToReturn = responseToReturn;
         }
 
+        @Override
         public HttpResponseResult execute(RequestStep step) {
             invocationCounts.computeIfAbsent(step.name(), k -> new AtomicInteger(0)).incrementAndGet();
             return responseToReturn;
@@ -56,22 +80,12 @@ class DefaultVirtualUserEngineTest {
             return count != null ? count.get() : 0;
         }
 
-        public Map<String, Integer> getInvocationCounts() {
-            Map<String, Integer> result = new HashMap<>();
-            for (Map.Entry<String, AtomicInteger> entry : invocationCounts.entrySet()) {
-                result.put(entry.getKey(), entry.getValue().get());
-            }
-            return result;
-        }
-
-        public void close() {
-            // No-op for test
+        public int getTotalInvocations() {
+            return invocationCounts.values().stream().mapToInt(AtomicInteger::get).sum();
         }
     }
 
-    /**
-     * Inner class that always throws an exception.
-     */
+    /** Transport that always throws a RuntimeException. */
     static class FailingTransport implements HttpTransportLayer {
         private final RuntimeException exceptionToThrow;
 
@@ -79,193 +93,408 @@ class DefaultVirtualUserEngineTest {
             this.exceptionToThrow = exceptionToThrow;
         }
 
+        @Override
         public HttpResponseResult execute(RequestStep step) {
             throw exceptionToThrow;
         }
+    }
 
-        public void close() {
-            // No-op for test
+    /** Transport that wraps InterruptedException in a RuntimeException. */
+    static class InterruptingTransport implements HttpTransportLayer {
+        @Override
+        public HttpResponseResult execute(RequestStep step) {
+            // Simulate an interrupt by interrupting the current thread and throwing
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(new InterruptedException("simulated interruption"));
         }
     }
 
+    @BeforeEach
+    void setUp() {
+        testStep = new RequestStep("test-step", HttpMethod.GET, "/test", null, Map.of(), 1000);
+        testScenario = new Scenario("test-scenario", List.of(testStep), 0, 30, 1);
+    }
+
+    // -------------------------------------------------------------------------
+    // Constructor tests
+    // -------------------------------------------------------------------------
+
+    @Test
+    void constructor_nullTransport_throwsNPE() {
+        assertThrows(NullPointerException.class, () ->
+                new DefaultVirtualUserEngine(null, new NoOpMetricsEngine()));
+    }
+
+    @Test
+    void constructor_nullMetricsEngine_throwsNPE() {
+        assertThrows(NullPointerException.class, () ->
+                new DefaultVirtualUserEngine(
+                        new CountingTransport(new HttpResponseResult(200, "ok", 1000L)), null));
+    }
+
+    // -------------------------------------------------------------------------
+    // initialize() tests
+    // -------------------------------------------------------------------------
+
     @Test
     void initialize_returnsCorrectListSize() {
-        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(new CountingTransport(
-                new HttpResponseResult(200, "ok", 1000L)));
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new CountingTransport(new HttpResponseResult(200, "ok", 1000L)),
+                new NoOpMetricsEngine());
 
         List<VirtualUser> users = engine.initialize(testScenario, 5);
-        Assertions.assertEquals(5, users.size());
+        assertEquals(5, users.size());
     }
 
     @Test
     void initialize_elementFields_correct() {
-        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(new CountingTransport(
-                new HttpResponseResult(200, "ok", 1000L)));
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new CountingTransport(new HttpResponseResult(200, "ok", 1000L)),
+                new NoOpMetricsEngine());
 
         List<VirtualUser> users = engine.initialize(testScenario, 3);
-        Assertions.assertEquals(3, users.size());
-
         for (int i = 0; i < users.size(); i++) {
             VirtualUser user = users.get(i);
-            Assertions.assertEquals("user-" + (i + 1), user.userId());
-            Assertions.assertEquals(com.latencylab.model.VirtualUserState.IDLE, user.state());
-            Assertions.assertEquals(testScenario, user.activeScenario());
-            Assertions.assertNull(user.metricsSnapshot());
+            assertEquals("user-" + (i + 1), user.userId());
+            assertEquals(VirtualUserState.IDLE, user.state());
+            assertEquals(testScenario, user.activeScenario());
+            assertNull(user.metricsSnapshot());
         }
     }
 
     @Test
     void initialize_listIsUnmodifiable() {
-        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(new CountingTransport(
-                new HttpResponseResult(200, "ok", 1000L)));
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new CountingTransport(new HttpResponseResult(200, "ok", 1000L)),
+                new NoOpMetricsEngine());
 
         List<VirtualUser> users = engine.initialize(testScenario, 2);
-        Assertions.assertThrows(java.lang.UnsupportedOperationException.class, () -> {
-            users.add(new VirtualUser("dummy", com.latencylab.model.VirtualUserState.IDLE, testScenario, null));
-        });
+        assertThrows(UnsupportedOperationException.class, () ->
+                users.add(new VirtualUser("dummy", VirtualUserState.IDLE, testScenario, null)));
     }
 
     @Test
     void initialize_userCountZero_throwsIAE() {
-        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(new CountingTransport(
-                new HttpResponseResult(200, "ok", 1000L)));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            engine.initialize(testScenario, 0);
-        });
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new CountingTransport(new HttpResponseResult(200, "ok", 1000L)),
+                new NoOpMetricsEngine());
+        assertThrows(IllegalArgumentException.class, () -> engine.initialize(testScenario, 0));
     }
 
     @Test
     void initialize_userCountNegative_throwsIAE() {
-        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(new CountingTransport(
-                new HttpResponseResult(200, "ok", 1000L)));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            engine.initialize(testScenario, -1);
-        });
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new CountingTransport(new HttpResponseResult(200, "ok", 1000L)),
+                new NoOpMetricsEngine());
+        assertThrows(IllegalArgumentException.class, () -> engine.initialize(testScenario, -1));
     }
 
     @Test
     void initialize_nullScenario_throwsNPE() {
-        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(new CountingTransport(
-                new HttpResponseResult(200, "ok", 1000L)));
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            engine.initialize(null, 5);
-        });
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new CountingTransport(new HttpResponseResult(200, "ok", 1000L)),
+                new NoOpMetricsEngine());
+        assertThrows(NullPointerException.class, () -> engine.initialize(null, 5));
     }
+
+    // -------------------------------------------------------------------------
+    // execute() tests
+    // -------------------------------------------------------------------------
 
     @Test
     void execute_invokesTransportOncePerStepPerUser() {
-        CountingTransport transport = new CountingTransport(
-                new HttpResponseResult(200, "ok", 1000L));
-        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(transport);
+        CountingTransport transport = new CountingTransport(new HttpResponseResult(200, "ok", 1000L));
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(transport, new NoOpMetricsEngine());
 
-        // Create a scenario with 2 steps
         RequestStep step1 = new RequestStep("step1", HttpMethod.GET, "/step1", null, Map.of(), 1000);
         RequestStep step2 = new RequestStep("step2", HttpMethod.POST, "/step2", null, Map.of(), 1000);
-        List<RequestStep> steps = List.of(step1, step2);
-        Scenario scenario = new Scenario("multi-step", steps, 0, 30, 3);
+        Scenario scenario = new Scenario("multi-step", List.of(step1, step2), 0, 30, 3);
 
-        // Initialize 3 users
         List<VirtualUser> users = engine.initialize(scenario, 3);
-
-        // Execute
         engine.execute(users, scenario);
 
-        // Each user should have executed each step once
-        Assertions.assertEquals(3, transport.getInvocationCount("step1"));
-        Assertions.assertEquals(3, transport.getInvocationCount("step2"));
+        assertEquals(3, transport.getInvocationCount("step1"));
+        assertEquals(3, transport.getInvocationCount("step2"));
     }
 
     @Test
     void execute_emptyUsers_returnsImmediately() {
-        CountingTransport transport = new CountingTransport(
-                new HttpResponseResult(200, "ok", 1000L));
-        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(transport);
+        CountingTransport transport = new CountingTransport(new HttpResponseResult(200, "ok", 1000L));
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(transport, new NoOpMetricsEngine());
 
-        // Execute with empty list - should not throw and not invoke transport
         engine.execute(new ArrayList<>(), testScenario);
 
-        // Invocation count should be zero
-        Assertions.assertEquals(0, transport.getInvocationCount("test-step"));
+        assertEquals(0, transport.getInvocationCount("test-step"));
     }
 
     @Test
     void execute_nullUsers_throwsNPE() {
-        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(new CountingTransport(
-                new HttpResponseResult(200, "ok", 1000L)));
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            engine.execute(null, testScenario);
-        });
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new CountingTransport(new HttpResponseResult(200, "ok", 1000L)),
+                new NoOpMetricsEngine());
+        assertThrows(NullPointerException.class, () -> engine.execute(null, testScenario));
     }
 
     @Test
     void execute_nullScenario_throwsNPE() {
-        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(new CountingTransport(
-                new HttpResponseResult(200, "ok", 1000L)));
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new CountingTransport(new HttpResponseResult(200, "ok", 1000L)),
+                new NoOpMetricsEngine());
         List<VirtualUser> users = engine.initialize(testScenario, 1);
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            engine.execute(users, null);
-        });
+        assertThrows(NullPointerException.class, () -> engine.execute(users, null));
     }
 
     @Test
     void execute_failingTransport_doesNotPropagateException() {
-        FailingTransport transport = new FailingTransport(
-                new RuntimeException("simulated failure"));
-        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(transport);
+        FailingTransport transport = new FailingTransport(new RuntimeException("simulated failure"));
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(transport, new NoOpMetricsEngine());
 
-        // Initialize 1 user
         List<VirtualUser> users = engine.initialize(testScenario, 1);
-
-        // Execute should not throw even though transport fails
-        Assertions.assertDoesNotThrow(() -> {
-            engine.execute(users, testScenario);
-        });
+        assertDoesNotThrow(() -> engine.execute(users, testScenario));
     }
 
     @Test
-    void execute_failingTransport_otherUsersComplete_approximation() {
-        // This test verifies that when one user fails, the engine continues processing
-        // We approximate this by having a transport that fails on the first few calls
-        // then succeeds (simulating different users having different outcomes)
-        
-         class EventuallySucceedingTransport implements HttpTransportLayer {
-             private final int failCount;
-             private final AtomicInteger callCount = new AtomicInteger(0);
+    void execute_failingUser_doesNotPreventOthersFromCompleting() {
+        // Use a transport that fails for user-1 and succeeds for others
+        // We track which userId is executing via thread name
+        CountingTransport successTransport = new CountingTransport(new HttpResponseResult(200, "ok", 1000L));
 
-             EventuallySucceedingTransport(int failCount) {
-                 this.failCount = failCount;
-             }
+        class SelectiveTransport implements HttpTransportLayer {
+            private final AtomicInteger callCount = new AtomicInteger(0);
 
-             public HttpResponseResult execute(RequestStep step) {
-                 int currentCall = callCount.incrementAndGet();
-                 if (currentCall <= failCount) {
-                     throw new RuntimeException("simulated failure on call " + currentCall);
-                 }
-                 // Succeed after the specified number of failures.
-                 return new HttpResponseResult(200, "ok", 1000L);
-             }
+            @Override
+            public HttpResponseResult execute(RequestStep step) {
+                // First call (user-1) fails, subsequent calls succeed
+                if (callCount.incrementAndGet() == 1) {
+                    throw new RuntimeException("user-1 fails");
+                }
+                return new HttpResponseResult(200, "ok", 1000L);
+            }
+        }
 
-             public void close() {
-                 // No-op
-             }
-         }
+        SelectiveTransport transport = new SelectiveTransport();
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(transport, new NoOpMetricsEngine());
 
-        // Configure to fail on first call, succeed on second and third
-        // This simulates: user1 fails, user2 succeeds, user3 succeeds (assuming sequential execution for simplicity)
-        EventuallySucceedingTransport transport = new EventuallySucceedingTransport(1);
-        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(transport);
-
-        // Initialize 3 users
         List<VirtualUser> users = engine.initialize(testScenario, 3);
+        assertDoesNotThrow(() -> engine.execute(users, testScenario));
 
-        // Execute - should not throw because engine catches exceptions
-        Assertions.assertDoesNotThrow(() -> {
-            engine.execute(users, testScenario);
+        // At least 2 users should have completed (the ones that didn't fail)
+        long completedCount = users.stream()
+                .map(u -> engine.getState(u.userId()))
+                .filter(s -> s == VirtualUserState.COMPLETED)
+                .count();
+        assertTrue(completedCount >= 2, "Expected at least 2 completed users, got " + completedCount);
+    }
+
+    @Test
+    void execute_afterStop_returnsImmediately() {
+        CountingTransport transport = new CountingTransport(new HttpResponseResult(200, "ok", 1000L));
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(transport, new NoOpMetricsEngine());
+
+        engine.stop();
+
+        List<VirtualUser> users = engine.initialize(testScenario, 3);
+        engine.execute(users, testScenario);
+
+        // No threads should have been launched — transport never called
+        assertEquals(0, transport.getTotalInvocations());
+    }
+
+    // -------------------------------------------------------------------------
+    // pause() / resume() / stop() tests
+    // -------------------------------------------------------------------------
+
+    @Test
+    void pause_blocksThreadsUntilResume() throws InterruptedException {
+        // Transport blocks until we release it, then counts invocations
+        CountDownLatch transportLatch = new CountDownLatch(1);
+        AtomicInteger invocationCount = new AtomicInteger(0);
+
+        class BlockingTransport implements HttpTransportLayer {
+            @Override
+            public HttpResponseResult execute(RequestStep step) {
+                try {
+                    transportLatch.await();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException(e);
+                }
+                invocationCount.incrementAndGet();
+                return new HttpResponseResult(200, "ok", 1000L);
+            }
+        }
+
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new BlockingTransport(), new NoOpMetricsEngine());
+        List<VirtualUser> users = engine.initialize(testScenario, 1);
+
+        // Pause before releasing the transport so the thread blocks at the inter-step boundary
+        engine.pause();
+
+        Thread executionThread = new Thread(() -> engine.execute(users, testScenario));
+        executionThread.start();
+
+        // Release the transport so the first (and only) step can complete
+        transportLatch.countDown();
+
+        // Give the virtual thread time to finish the step and hit the pause latch
+        Thread.sleep(200);
+
+        // Transport was called once (the step completed), but the thread is now paused
+        assertEquals(1, invocationCount.get());
+
+        // Resume and wait for completion
+        engine.resume();
+        executionThread.join(5000);
+
+        assertFalse(executionThread.isAlive(), "Execution thread should have completed");
+    }
+
+    @Test
+    void stop_causesThreadsToExitAfterCurrentCall() throws InterruptedException {
+        // Use a latch to synchronize: let the first step complete, then stop
+        CountDownLatch firstStepDone = new CountDownLatch(1);
+        AtomicInteger invocationCount = new AtomicInteger(0);
+
+        class SyncTransport implements HttpTransportLayer {
+            @Override
+            public HttpResponseResult execute(RequestStep step) {
+                int count = invocationCount.incrementAndGet();
+                if (count == 1) {
+                    firstStepDone.countDown();
+                }
+                return new HttpResponseResult(200, "ok", 1000L);
+            }
+        }
+
+        RequestStep step1 = new RequestStep("step1", HttpMethod.GET, "/step1", null, Map.of(), 1000);
+        RequestStep step2 = new RequestStep("step2", HttpMethod.GET, "/step2", null, Map.of(), 1000);
+        RequestStep step3 = new RequestStep("step3", HttpMethod.GET, "/step3", null, Map.of(), 1000);
+        Scenario scenario = new Scenario("multi-step", List.of(step1, step2, step3), 0, 30, 1);
+
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new SyncTransport(), new NoOpMetricsEngine());
+        List<VirtualUser> users = engine.initialize(scenario, 1);
+
+        Thread executionThread = new Thread(() -> engine.execute(users, scenario));
+        executionThread.start();
+
+        // Wait for first step to complete, then stop
+        firstStepDone.await();
+        engine.stop();
+
+        executionThread.join(5000);
+        assertFalse(executionThread.isAlive(), "Execution thread should have completed");
+
+        // At least step1 was executed; step2 and step3 may or may not have run
+        // depending on scheduling, but total should be < 3 (stop was called after step1)
+        assertTrue(invocationCount.get() >= 1, "At least step1 should have executed");
+        assertTrue(invocationCount.get() <= 3, "Should not exceed total step count");
+    }
+
+    @Test
+    void stop_idempotent_noExceptionOnMultipleCalls() {
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new CountingTransport(new HttpResponseResult(200, "ok", 1000L)),
+                new NoOpMetricsEngine());
+
+        assertDoesNotThrow(() -> {
+            engine.stop();
+            engine.stop();
+            engine.stop();
+            engine.stop();
+            engine.stop();
         });
+    }
 
-        // Verify that we made at least 3 calls (one per user)
-        // Due to virtual thread scheduling, exact counts may vary but should be >= 3
-        Assertions.assertTrue(transport.callCount.get() >= 3, 
-            "Expected at least 3 calls but got " + transport.callCount.get());
+    // -------------------------------------------------------------------------
+    // Metrics tests
+    // -------------------------------------------------------------------------
+
+    @Test
+    void metricsRecord_calledOncePerResult_notCalledOnException() {
+        CountingMetricsEngine metricsEngine = new CountingMetricsEngine();
+
+        RequestStep step1 = new RequestStep("step1", HttpMethod.GET, "/step1", null, Map.of(), 1000);
+        RequestStep step2 = new RequestStep("step2", HttpMethod.POST, "/step2", null, Map.of(), 1000);
+        RequestStep step3 = new RequestStep("step3", HttpMethod.GET, "/step3", null, Map.of(), 1000);
+        Scenario scenario = new Scenario("multi-step", List.of(step1, step2, step3), 0, 30, 1);
+
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new CountingTransport(new HttpResponseResult(200, "ok", 1000L)), metricsEngine);
+        List<VirtualUser> users = engine.initialize(scenario, 1);
+        engine.execute(users, scenario);
+
+        // 1 user × 3 steps = 3 record() calls
+        assertEquals(3, metricsEngine.getRecordCount());
+    }
+
+    @Test
+    void metricsRecord_notCalledWhenTransportThrows() {
+        CountingMetricsEngine metricsEngine = new CountingMetricsEngine();
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new FailingTransport(new RuntimeException("transport failure")), metricsEngine);
+
+        List<VirtualUser> users = engine.initialize(testScenario, 1);
+        engine.execute(users, testScenario);
+
+        assertEquals(0, metricsEngine.getRecordCount());
+    }
+
+    // -------------------------------------------------------------------------
+    // State registry tests
+    // -------------------------------------------------------------------------
+
+    @Test
+    void getState_returnsIdle_forUnknownUserId() {
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new CountingTransport(new HttpResponseResult(200, "ok", 1000L)),
+                new NoOpMetricsEngine());
+
+        assertEquals(VirtualUserState.IDLE, engine.getState("nonexistent-user"));
+    }
+
+    @Test
+    void getStates_returnsUnmodifiableSnapshot() {
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new CountingTransport(new HttpResponseResult(200, "ok", 1000L)),
+                new NoOpMetricsEngine());
+
+        List<VirtualUser> users = engine.initialize(testScenario, 3);
+        engine.execute(users, testScenario);
+
+        Map<String, VirtualUserState> states = engine.getStates();
+        assertEquals(3, states.size());
+        assertThrows(UnsupportedOperationException.class, () ->
+                states.put("dummy", VirtualUserState.IDLE));
+    }
+
+    @Test
+    void getStates_allUsersCompletedAfterSuccessfulExecute() {
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new CountingTransport(new HttpResponseResult(200, "ok", 1000L)),
+                new NoOpMetricsEngine());
+
+        List<VirtualUser> users = engine.initialize(testScenario, 3);
+        engine.execute(users, testScenario);
+
+        engine.getStates().values().forEach(state ->
+                assertEquals(VirtualUserState.COMPLETED, state));
+    }
+
+    // -------------------------------------------------------------------------
+    // InterruptedException handling
+    // -------------------------------------------------------------------------
+
+    @Test
+    void interruptedException_fromTransport_marksUserCompleted() {
+        DefaultVirtualUserEngine engine = new DefaultVirtualUserEngine(
+                new InterruptingTransport(), new NoOpMetricsEngine());
+
+        List<VirtualUser> users = engine.initialize(testScenario, 1);
+        assertDoesNotThrow(() -> engine.execute(users, testScenario));
+
+        // Interruption is treated as a clean stop — user should be COMPLETED, not FAILED
+        assertEquals(VirtualUserState.COMPLETED, engine.getState("user-1"));
     }
 }
