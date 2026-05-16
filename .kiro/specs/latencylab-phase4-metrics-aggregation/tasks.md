@@ -114,20 +114,20 @@ Implement `DefaultMetricsEngine` in `com.latencylab.metrics` — a lock-free, th
     - Tag comment: `// Feature: latencylab-phase4-metrics-aggregation, Property 7: Min and max correctness`
     - **Validates: Requirements 3.2, 3.3**
 
-- [ ] 6. Write `DefaultMetricsEngineIntegrationTest` (integration tests — recommended)
-  - [ ]* 6.1 Implement `testEndToEndNxKRequests`
+- [x] 6. Write `DefaultMetricsEngineIntegrationTest` (integration tests — recommended)
+  - [x]* 6.1 Implement `testEndToEndNxKRequests`
     - Create a stub `HttpTransportLayer` (anonymous class) that returns `new HttpResponseResult(200, null, 1000L)` for every call
     - Construct `DefaultMetricsEngine` and `DefaultVirtualUserEngine(stubTransport, metricsEngine)`
     - Call `initialize(scenario, N)` then `execute(users, scenario)` with N users and K steps
     - Assert `metricsEngine.snapshot().totalRequests == N * K`
     - _Requirements: 7.1, 7.5_
 
-  - [ ]* 6.2 Implement `testMixedStatusCodeCounting`
+  - [x]* 6.2 Implement `testMixedStatusCodeCounting`
     - Create a stub transport that alternates between returning `HttpResponseResult(200, null, 500L)` and `HttpResponseResult(500, null, 500L)`
     - Run with enough users/steps to produce a known mix; assert `successfulRequests` equals the count of 2xx responses and `failedRequests` equals the count of non-2xx responses
     - _Requirements: 7.3_
 
-  - [ ]* 6.3 Implement `testMinMaxFromTransportResults`
+  - [x]* 6.3 Implement `testMinMaxFromTransportResults`
     - Create a stub transport that returns results with distinct `latencyNanos` values (e.g., `[100L, 5000L, 300L]` cycling)
     - After `execute` completes, assert `metricsEngine.snapshot().minLatencyNanos == 100L` and `metricsEngine.snapshot().maxLatencyNanos == 5000L`
     - _Requirements: 7.4_
