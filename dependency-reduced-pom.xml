@@ -113,15 +113,15 @@
     </dependency>
   </dependencies>
   <properties>
-    <java.version>25</java.version>
-    <maven.compiler.source>25</maven.compiler.source>
-    <maven.compiler.target>25</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <okhttp.version>4.12.0</okhttp.version>
-    <jackson.version>2.16.1</jackson.version>
-    <slf4j.version>2.0.12</slf4j.version>
-    <logback.version>1.5.3</logback.version>
-    <junit.version>5.10.2</junit.version>
     <jqwik.version>1.8.4</jqwik.version>
+    <java.version>21</java.version>
+    <maven.compiler.source>21</maven.compiler.source>
+    <jackson.version>2.16.1</jackson.version>
+    <maven.compiler.target>21</maven.compiler.target>
+    <okhttp.version>4.12.0</okhttp.version>
+    <slf4j.version>2.0.12</slf4j.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <junit.version>5.10.2</junit.version>
+    <logback.version>1.5.3</logback.version>
   </properties>
 </project>
