@@ -64,50 +64,50 @@ Implement `DefaultMetricsEngine` in `com.latencylab.metrics` — a lock-free, th
 - [x] 4. Checkpoint — Ensure required tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 5. Write `DefaultMetricsEnginePropertyTest` (jqwik property-based tests — recommended)
-  - [ ]* 5.1 Write property test for Property 1: Counter consistency invariant
+- [x] 5. Write `DefaultMetricsEnginePropertyTest` (jqwik property-based tests — recommended)
+  - [x]* 5.1 Write property test for Property 1: Counter consistency invariant
     - **Property 1: Counter consistency invariant — totalRequests == successfulRequests + failedRequests**
     - For any sequence of N `record(latencyNanos, success)` calls with arbitrary non-negative `latencyNanos` and arbitrary `success` flags, assert `snapshot().totalRequests == N`, `snapshot().successfulRequests == trueCount`, `snapshot().failedRequests == falseCount`, and `successfulRequests + failedRequests == totalRequests`
     - Use `@Property(tries = 100)` and `@ForAll @Size(min=1, max=50) List<Long>` for latency values and a parallel list of booleans for success flags
     - Tag comment: `// Feature: latencylab-phase4-metrics-aggregation, Property 1: Counter consistency invariant`
     - **Validates: Requirements 2.1, 2.2, 5.1, 5.2, 5.3**
 
-  - [ ]* 5.2 Write property test for Property 2: Latency ordering invariant
+  - [x]* 5.2 Write property test for Property 2: Latency ordering invariant
     - **Property 2: Latency ordering invariant — min ≤ avg ≤ max and P50 ≤ P95 ≤ P99**
     - For any non-empty list of non-negative latency values, assert `minLatencyNanos <= avgLatencyNanos`, `avgLatencyNanos <= maxLatencyNanos`, `p50LatencyNanos <= p95LatencyNanos`, `p95LatencyNanos <= p99LatencyNanos`
     - Use `@Property(tries = 100)` and `@ForAll @NotEmpty List<@LongRange(min=0, max=Long.MAX_VALUE/2) Long>`
     - Tag comment: `// Feature: latencylab-phase4-metrics-aggregation, Property 2: Latency ordering invariant`
     - **Validates: Requirements 3.7, 3.8**
 
-  - [ ]* 5.3 Write property test for Property 3: Percentile index formula correctness
+  - [x]* 5.3 Write property test for Property 3: Percentile index formula correctness
     - **Property 3: Percentile index formula correctness**
     - For any sorted `long[]` of length N ≥ 1, assert that `array[(int) Math.floor(R * N)]` for R ∈ {0.50, 0.95, 0.99} produces an index in [0, N-1] and a value ≥ `array[0]` and ≤ `array[N-1]`
     - Use `@Property(tries = 100)` and `@ForAll @Size(min=1, max=200) long[]`; sort the array in the test body before computing indices
     - Tag comment: `// Feature: latencylab-phase4-metrics-aggregation, Property 3: Percentile index formula correctness`
     - **Validates: Requirement 3.4**
 
-  - [ ]* 5.4 Write property test for Property 4: Thread-safe concurrent recording — no lost updates
+  - [x]* 5.4 Write property test for Property 4: Thread-safe concurrent recording — no lost updates
     - **Property 4: Thread-safe concurrent recording — no lost updates**
     - For any `threadCount` in [2, 50] and `recordsPerThread` in [1, 100], spawn `threadCount` virtual threads each calling `record(1000L, true)` exactly `recordsPerThread` times; after all threads join, assert `snapshot().totalRequests == threadCount * recordsPerThread` and `snapshot().successfulRequests == threadCount * recordsPerThread`
     - Use `@Property(tries = 100)`, `@ForAll @IntRange(min=2, max=50) int threadCount`, `@ForAll @IntRange(min=1, max=100) int recordsPerThread`
     - Tag comment: `// Feature: latencylab-phase4-metrics-aggregation, Property 4: Thread-safe concurrent recording`
     - **Validates: Requirements 2.1, 2.3, 7.1**
 
-  - [ ]* 5.5 Write property test for Property 5: RPS is non-negative and finite
+  - [x]* 5.5 Write property test for Property 5: RPS is non-negative and finite
     - **Property 5: RPS is non-negative and finite for all valid inputs**
     - For any number of `record` calls (including zero), assert `requestsPerSecond >= 0.0`, `!Double.isNaN(rps)`, `!Double.isInfinite(rps)`
     - Use `@Property(tries = 100)` and `@ForAll @IntRange(min=0, max=200) int recordCount`
     - Tag comment: `// Feature: latencylab-phase4-metrics-aggregation, Property 5: RPS is non-negative and finite`
     - **Validates: Requirements 4.3, 4.5**
 
-  - [ ]* 5.6 Write property test for Property 6: Snapshot idempotency
+  - [x]* 5.6 Write property test for Property 6: Snapshot idempotency
     - **Property 6: Snapshot idempotency — repeated snapshots without new records return equivalent data**
     - For any non-empty sequence of `record` calls, call `snapshot()` twice with no intervening `record()`; assert all statistical fields (excluding `snapshotTimestamp` and `requestsPerSecond`) are equal between the two snapshots
     - Use `@Property(tries = 100)` and `@ForAll @NotEmpty List<@LongRange(min=0) Long>`
     - Tag comment: `// Feature: latencylab-phase4-metrics-aggregation, Property 6: Snapshot idempotency`
     - **Validates: Requirements 6.2, 6.5**
 
-  - [ ]* 5.7 Write property test for Property 7: Min and max correctness — exact values
+  - [x]* 5.7 Write property test for Property 7: Min and max correctness — exact values
     - **Property 7: Min and max correctness — exact values from recorded set**
     - For any non-empty list of non-negative latency values L, assert `snapshot().minLatencyNanos == Collections.min(L)` and `snapshot().maxLatencyNanos == Collections.max(L)`
     - Use `@Property(tries = 100)` and `@ForAll @NotEmpty List<@LongRange(min=0) Long>`
