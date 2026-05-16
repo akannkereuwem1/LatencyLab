@@ -78,75 +78,75 @@ Rewrite `DefaultVirtualUserEngine` from its Phase 2 stub into a production-grade
     - After all threads join: if `shutdownSignal.get()` is true, log INFO that all virtual users have stopped
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 6.4, 6.5, 6.7_
 
-- [~] 6. Checkpoint — compile and existing tests pass
+- [ ] 6. Checkpoint — compile and existing tests pass
   - Ensure `mvn verify` exits with `BUILD SUCCESS`. All pre-existing tests must pass with the updated constructor. Ask the user if questions arise.
 
 - [ ] 7. Update `DefaultVirtualUserEngineTest` — new Phase 3 test methods
-  - [~] 7.1 Add a no-op `MetricsEngine` inner class (`NoOpMetricsEngine`) to the test class
+  - [ ] 7.1 Add a no-op `MetricsEngine` inner class (`NoOpMetricsEngine`) to the test class
     - Implements `MetricsEngine`; `record(long, boolean)` is a no-op; `snapshot()` returns null
     - Update all existing test methods to pass `new NoOpMetricsEngine()` as the second constructor argument
 
-  - [~] 7.2 Add `constructor_nullTransport_throwsNPE`
+  - [ ] 7.2 Add `constructor_nullTransport_throwsNPE`
     - `new DefaultVirtualUserEngine(null, new NoOpMetricsEngine())` → `NullPointerException`
     - _Requirements: 5.2_
 
-  - [~] 7.3 Add `constructor_nullMetricsEngine_throwsNPE`
+  - [ ] 7.3 Add `constructor_nullMetricsEngine_throwsNPE`
     - `new DefaultVirtualUserEngine(transport, null)` → `NullPointerException`
     - _Requirements: 5.2_
 
-  - [~] 7.4 Add `execute_invokesTransportOncePerStepPerUser` (replace/update existing)
+  - [ ] 7.4 Add `execute_invokesTransportOncePerStepPerUser` (replace/update existing)
     - Use a `CountingMetricsEngine` inner class (thread-safe `AtomicInteger` counter)
     - 3 users × 2 steps → transport called 6 times, `metricsEngine.record` called 6 times
     - _Requirements: 1.1, 5.1, 9.4a_
 
-  - [~] 7.5 Add `execute_failingUser_doesNotPreventOthersFromCompleting`
+  - [ ] 7.5 Add `execute_failingUser_doesNotPreventOthersFromCompleting`
     - 1 user with `FailingTransport`, 2 users with `CountingTransport`
     - After `execute` returns: `getState("user-1")` == `FAILED`, `getState("user-2")` == `COMPLETED`, `getState("user-3")` == `COMPLETED`
     - `execute` must not throw
     - _Requirements: 4.1, 4.2, 4.3, 9.4b_
 
-  - [~] 7.6 Add `pause_blocksThreadsUntilResume`
+  - [ ] 7.6 Add `pause_blocksThreadsUntilResume`
     - Use a `BlockingTransport` that blocks on a `CountDownLatch` until released; call `engine.pause()` before releasing the transport latch; verify no further transport calls are made until `engine.resume()` is called
     - _Requirements: 2.4, 2.5, 9.4c_
 
-  - [~] 7.7 Add `stop_causesThreadsToExitAfterCurrentCall`
+  - [ ] 7.7 Add `stop_causesThreadsToExitAfterCurrentCall`
     - Use a `CountingTransport` with a multi-step scenario; call `engine.stop()` after the first step completes; verify transport is not called for subsequent steps
     - _Requirements: 6.1, 6.2, 9.4d_
 
-  - [~] 7.8 Add `metricsRecord_calledOncePerResult_notCalledOnException`
+  - [ ] 7.8 Add `metricsRecord_calledOncePerResult_notCalledOnException`
     - Use a `CountingMetricsEngine`; mix one `FailingTransport` user and one `CountingTransport` user with 3 steps each; verify `metricsEngine.record` called exactly 3 times (only for the successful user)
     - _Requirements: 5.1, 5.4, 9.4e_
 
-  - [~] 7.9 Add `stop_idempotent_noExceptionOnMultipleCalls`
+  - [ ] 7.9 Add `stop_idempotent_noExceptionOnMultipleCalls`
     - Call `engine.stop()` 5 times on the same instance; assert no exception is thrown
     - _Requirements: 6.6_
 
-  - [~] 7.10 Add `execute_afterStop_returnsImmediately`
+  - [ ] 7.10 Add `execute_afterStop_returnsImmediately`
     - Call `engine.stop()` before `execute`; verify `execute` returns without launching threads (transport call count remains 0)
     - _Requirements: 6.5, 6.7_
 
-  - [~] 7.11 Add `interruptedException_fromTransport_marksUserCompleted`
+  - [ ] 7.11 Add `interruptedException_fromTransport_marksUserCompleted`
     - Use a transport that throws `InterruptedException` wrapped in a `RuntimeException` (or directly if the interface allows checked exceptions); verify user state is `COMPLETED` not `FAILED`
     - _Requirements: 4.4_
 
-  - [~] 7.12 Add `getState_returnsIdle_forUnknownUserId`
+  - [ ] 7.12 Add `getState_returnsIdle_forUnknownUserId`
     - Call `engine.getState("nonexistent-user")` before any `execute`; assert result is `VirtualUserState.IDLE`
     - _Requirements: 2.7_
 
-  - [~] 7.13 Add `getStates_returnsUnmodifiableSnapshot`
+  - [ ] 7.13 Add `getStates_returnsUnmodifiableSnapshot`
     - After `execute` with 3 users, call `getStates()`; assert size == 3; assert `map.put(...)` throws `UnsupportedOperationException`
     - _Requirements: 2.8_
 
 - [ ] 8. Update `DefaultVirtualUserEngineComplianceTest` — extend with Phase 3 checks
-  - [~] 8.1 Add reflection test for `pause()`, `resume()`, `stop()`, `getState()`, `getStates()` method presence
+  - [ ] 8.1 Add reflection test for `pause()`, `resume()`, `stop()`, `getState()`, `getStates()` method presence
     - Use `DefaultVirtualUserEngine.class.getDeclaredMethod(...)` to assert each method exists with the correct signature
     - _Requirements: 9.2_
 
-- [~] 9. Checkpoint — engine tests pass
+- [ ] 9. Checkpoint — engine tests pass
   - Run `mvn verify` and confirm `BUILD SUCCESS` with all engine tests passing. Ask the user if questions arise.
 
 - [ ] 10. Update `DefaultVirtualUserEnginePropertyTest` — Phase 3 properties
-  - [~] 10.1 Add a `CountingMetricsEngine` inner class to the property test class
+  - [ ] 10.1 Add a `CountingMetricsEngine` inner class to the property test class
     - Thread-safe `AtomicInteger recordCount`; `record(long, boolean)` increments counter; `snapshot()` returns null
 
   - [ ]* 10.2 Write property test for metrics record count (Property 1)
@@ -185,7 +185,7 @@ Rewrite `DefaultVirtualUserEngine` from its Phase 2 stub into a production-grade
     - **Property 8: getStates() snapshot size equals the number of users passed to execute**
     - **Validates: Requirements 2.8**
 
-- [~] 11. Checkpoint — engine property tests pass
+- [ ] 11. Checkpoint — engine property tests pass
   - Run `mvn verify` and confirm `BUILD SUCCESS`. Ask the user if questions arise.
 
 - [x] 12. Create `DefaultLoadScheduler`
@@ -215,11 +215,11 @@ Rewrite `DefaultVirtualUserEngine` from its Phase 2 stub into a production-grade
     - `getState()`: return `state.get()`
     - _Requirements: 7.5, 7.6, 7.7, 8.2, 8.3_
 
-- [~] 13. Checkpoint — compile scheduler
+- [ ] 13. Checkpoint — compile scheduler
   - Run `mvn compile` and confirm no errors. Ask the user if questions arise.
 
 - [ ] 14. Create `DefaultLoadSchedulerTest`
-  - [~] 14.1 Create `DefaultLoadSchedulerTest.java` in `src/test/java/com/latencylab/scheduler/`
+  - [ ] 14.1 Create `DefaultLoadSchedulerTest.java` in `src/test/java/com/latencylab/scheduler/`
     - Use `AtomicInteger activationCount` as the activation callback counter in each test
     - `getState_returnsIdle_beforeStart`: assert `getState() == IDLE` on a fresh instance
     - `start_transitionsToRunning`: call `start(scenario)`; assert `getState() == RUNNING`
@@ -235,15 +235,15 @@ Rewrite `DefaultVirtualUserEngine` from its Phase 2 stub into a production-grade
     - _Requirements: 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3, 9.4a, 9.4b, 9.5_
 
 - [ ] 15. Create `DefaultLoadSchedulerComplianceTest`
-  - [~] 15.1 Create `DefaultLoadSchedulerComplianceTest.java` in `src/test/java/com/latencylab/scheduler/`
+  - [ ] 15.1 Create `DefaultLoadSchedulerComplianceTest.java` in `src/test/java/com/latencylab/scheduler/`
     - Assert `LoadScheduler.class.isAssignableFrom(DefaultLoadScheduler.class)` returns `true`
     - _Requirements: 7.1, 9.3_
 
-- [~] 16. Checkpoint — scheduler tests pass
+- [ ] 16. Checkpoint — scheduler tests pass
   - Run `mvn verify` and confirm `BUILD SUCCESS`. Ask the user if questions arise.
 
 - [ ] 17. Create `DefaultLoadSchedulerPropertyTest`
-  - [~] 17.1 Create `DefaultLoadSchedulerPropertyTest.java` in `src/test/java/com/latencylab/scheduler/`
+  - [ ] 17.1 Create `DefaultLoadSchedulerPropertyTest.java` in `src/test/java/com/latencylab/scheduler/`
 
   - [ ]* 17.2 Write property test for ramp-up delay arithmetic (Property 5)
     - `// Feature: latencylab-phase3-virtual-user-concurrency, Property 5: Ramp-up inter-activation delay is non-negative for all valid rampUpSeconds and userCount values`
@@ -257,7 +257,7 @@ Rewrite `DefaultVirtualUserEngine` from its Phase 2 stub into a production-grade
     - **Property 6: Constant load profile activates all users with no inter-activation delay**
     - **Validates: Requirements 7.3, 8.1, 8.2**
 
-- [~] 18. Final Checkpoint — full `mvn verify`
+- [ ] 18. Final Checkpoint — full `mvn verify`
   - Run `mvn verify` and confirm `BUILD SUCCESS` with all tests discovered and passing. Ask the user if questions arise.
 
 ## Notes
