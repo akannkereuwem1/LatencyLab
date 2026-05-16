@@ -6,15 +6,15 @@ Implement `DefaultMetricsEngine` in `com.latencylab.metrics` — a lock-free, th
 
 ## Tasks
 
-- [ ] 1. Implement `DefaultMetricsEngine` in `com.latencylab.metrics`
-  - [ ] 1.1 Create `DefaultMetricsEngine.java` with class declaration and internal fields
+- [x] 1. Implement `DefaultMetricsEngine` in `com.latencylab.metrics`
+  - [x] 1.1 Create `DefaultMetricsEngine.java` with class declaration and internal fields
     - Declare `public class DefaultMetricsEngine implements MetricsEngine` in package `com.latencylab.metrics`
     - Add `private static final Logger log` via `LoggerFactory.getLogger(DefaultMetricsEngine.class)`
     - Declare all internal fields: `totalCounter`, `successCounter`, `failureCounter`, `runningSum` (all `AtomicLong` initialized to `0`); `runningMin` (`AtomicLong` initialized to `Long.MAX_VALUE`); `runningMax` (`AtomicLong` initialized to `0`); `latencyBuffer` (`CopyOnWriteArrayList<Long>`); `startTimestamp` (`long`)
     - Implement the public no-argument constructor: capture `startTimestamp = System.nanoTime()` and log at DEBUG: `"DefaultMetricsEngine initialized, startTimestamp={}"`
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5_
 
-  - [ ] 1.2 Implement `record(long latencyNanos, boolean success)`
+  - [x] 1.2 Implement `record(long latencyNanos, boolean success)`
     - Guard: if `latencyNanos < 0` throw `IllegalArgumentException` with message containing `"latencyNanos"` and the received value; no state must be modified before this guard
     - Atomically increment `totalCounter` via `incrementAndGet()`
     - Conditionally increment `successCounter` (if `success == true`) or `failureCounter` (if `success == false`) via `incrementAndGet()`
@@ -25,7 +25,7 @@ Implement `DefaultMetricsEngine` in `com.latencylab.metrics` — a lock-free, th
     - Log at DEBUG: `"record: latencyNanos={}, success={}"`
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 2.10_
 
-  - [ ] 1.3 Implement `snapshot()`
+  - [x] 1.3 Implement `snapshot()`
     - Capture `snapshotTimestamp = System.nanoTime()`
     - Read all atomic values: `total`, `success`, `failure`, `sum`
     - Zero-state short-circuit: if `total == 0` return `new MetricsSnapshot(0, 0, 0, 0, 0, 0, 0, 0, 0, 0.0, snapshotTimestamp)`
@@ -38,8 +38,8 @@ Implement `DefaultMetricsEngine` in `com.latencylab.metrics` — a lock-free, th
     - Return `new MetricsSnapshot(total, success, failure, avg, min, max, p50, p95, p99, rps, snapshotTimestamp)`
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 4.1, 4.2, 4.3, 4.4, 5.1, 6.1, 6.3, 6.4, 6.5_
 
-- [ ] 2. Write `DefaultMetricsEngineTest` (unit tests — required)
-  - [ ] 2.1 Implement all required unit test methods in `com.latencylab.metrics.DefaultMetricsEngineTest`
+- [x] 2. Write `DefaultMetricsEngineTest` (unit tests — required)
+  - [x] 2.1 Implement all required unit test methods in `com.latencylab.metrics.DefaultMetricsEngineTest`
     - `testZeroStateSnapshot` — fresh engine returns all-zero `MetricsSnapshot` fields (Req 3.6)
     - `testSingleRecord` — after `record(1000L, true)`, all latency fields equal `1000`, `totalRequests == 1`, `successfulRequests == 1` (Req 3.5)
     - `testRecordIncrementsTotalRequests` — each `record()` call increments `totalRequests` by 1 (Req 2.1, 8.3a)
@@ -53,15 +53,15 @@ Implement `DefaultMetricsEngine` in `com.latencylab.metrics` — a lock-free, th
     - `testSnapshotDoesNotResetState` — two consecutive `snapshot()` calls return equal statistical fields (Req 6.5)
     - _Requirements: 2.1, 2.2, 2.7, 2.8, 2.9, 3.5, 3.6, 5.2, 6.1, 6.5, 8.3, 8.4_
 
-- [ ] 3. Write `DefaultMetricsEngineComplianceTest` (compliance tests — required)
-  - [ ] 3.1 Implement all compliance test methods in `com.latencylab.metrics.DefaultMetricsEngineComplianceTest`
+- [x] 3. Write `DefaultMetricsEngineComplianceTest` (compliance tests — required)
+  - [x] 3.1 Implement all compliance test methods in `com.latencylab.metrics.DefaultMetricsEngineComplianceTest`
     - `testImplementsMetricsEngine` — assert `MetricsEngine.class.isAssignableFrom(DefaultMetricsEngine.class)` returns `true` (Req 1.1, 8.2)
     - `testSnapshotDoesNotResetState` — two consecutive `snapshot()` calls with no intervening `record()` return equal `totalRequests`, `avgLatencyNanos`, `minLatencyNanos`, `maxLatencyNanos`, `p50LatencyNanos`, `p95LatencyNanos`, `p99LatencyNanos` (Req 6.2, 6.5)
     - `testRpsIsNonNegative` — `requestsPerSecond >= 0.0` after zero records, after one record, and after multiple records (Req 4.5)
     - `testAvgIsIntegerDivision` — record a known sequence (e.g., `[100L, 200L, 300L]`); assert `avgLatencyNanos == 200` (integer division of sum/count) (Req 3.1)
     - _Requirements: 1.1, 3.1, 4.5, 6.2, 6.5, 8.2, 8.5_
 
-- [ ] 4. Checkpoint — Ensure required tests pass
+- [x] 4. Checkpoint — Ensure required tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 5. Write `DefaultMetricsEnginePropertyTest` (jqwik property-based tests — recommended)
