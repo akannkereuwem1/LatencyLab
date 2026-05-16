@@ -132,7 +132,7 @@ Implement `DefaultMetricsEngine` in `com.latencylab.metrics` — a lock-free, th
     - After `execute` completes, assert `metricsEngine.snapshot().minLatencyNanos == 100L` and `metricsEngine.snapshot().maxLatencyNanos == 5000L`
     - _Requirements: 7.4_
 
-- [ ] 7. Final checkpoint — Verify `mvn verify` passes
+- [x] 7. Final checkpoint — Verify `mvn verify` passes
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes
